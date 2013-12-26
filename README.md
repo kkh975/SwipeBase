@@ -19,7 +19,7 @@ BaseSwipe
 
 ####css
 아래와 같이 길이와 높이값을 반드시 기입해야 합니다.
-```csss
+```css
 .listWrap {
 	width: 100%;
 	height: 100px;
@@ -65,8 +65,8 @@ new SlideSwipe( {
 + $toNext: {jQuery Selector} (default: null) 다음 이동 버튼
 						
 ####javascript option
-+ wrap: required {elements} (default: null) 리스트 감쌈
-+ list: required {elements} (default: null) 리스트
++ wrap: <u>required</u> {elements} (default: null) 리스트 감쌈
++ list: <u>required</u> {elements} (default: null) 리스트
 + pages: {elements} (default: null) 슬라이드 이동 버튼
 + toStart: {elements} (default: null) 슬라이드쇼 시작 버튼
 + toStop: {elements} (default: null) 슬라이드쇼 멈춤 버튼
@@ -74,18 +74,19 @@ new SlideSwipe( {
 + toNext: {elements} (default: null) 다음 이동 버튼
 
 ####common option
-+ startEvents: {Array} (default: ['click', 'mouseover']) toStart element 이벤트
-+ stopEvents: {Array} (default: ['click', 'mouseover']) toStop element 이벤트
-+ moveEvents: {Array} (default: ['click', 'mouseover']) toPrev and toNext element 이벤트
-+ pageEvents: {Array} (default: ['click', 'mouseover']) pages element 이벤트
-+ touchMinumRange: {Integer} (default:10) 사용자 터치시, 슬라이더로 넘어갈 기준값(백분율)
++ startEvents: {String} (default: 'click') toStart element 이벤트
++ stopEvents: {String} (default: 'click') toStop element 이벤트
++ moveEvents: {String} (default: 'click') toPrev and toNext element 이벤트
++ pageEvents: {String} (default: 'click') pages element 이벤트
++ touchMinumRange: {Integer} (default: 10) 사용자 터치시, 슬라이더로 넘어갈 기준값(백분율)
 + duration: {Integer} (default: 400) 애니메이션 시간
 + loop: {Boolean} (default: true) 루프 여부. false로 설정시 마지막 슬라이드에서 정지
 + slideShowTime: {Boolean or Integer} (default: 3000) 슬라이더쇼 시간
-+ create: {Function} 생성시 콜백 함수
-+ before: {Function} 슬라이더 이동 전 콜백 함수
-+ active: {Function} 슬라이더 이동 후 콜백 함수	
-					
-					
-						
-						
++ create: {Function} (default: null) 생성시 콜백 함수
++ before: {Function} (default: null) 슬라이더 이동 전 콜백 함수
++ active: {Function} (default: null) 슬라이더 이동 후 콜백 함수	
+
+Copyrights
+----------
+- license: http://blim.mit-license.org/
+- email: kkh975@naver.com
