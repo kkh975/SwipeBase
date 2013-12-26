@@ -8,7 +8,7 @@ BaseSwipe
 아래와 같이 감싸는 태그와 리스트 태그, 그리고 리스트의 아이템 태그로 작성합니다.
 
 ##html
-“`
+“
 <div class="listWrap">
   <ul class="list">
 		<li><div style="background: red;">0</div></li>
@@ -16,11 +16,11 @@ BaseSwipe
 		<li><div style="background: orange;">2</div></li>
 	</ul>
 </div>
-“`
+“
 
 ##css
 아래와 같이 길이와 높이값을 반드시 기입해야 합니다.
-“`
+“
 .listWrap {
 	width: 100%;
 	height: 100px;
@@ -29,17 +29,20 @@ BaseSwipe
 	width: 100%;
 	height: 100px;
 }
-“`
+“
 
 ##javascript
 jquery 플러그인을 작성할 경우 아래와 같이 작성합니다.
+“
 $( '.listWrap' ).slideSwipe( );
-
+“
 javascript으로 작성할 경우 아래와 같이 작성합니다.
+“
 new SlideSwipe( {
 	wrap: document.querySelectorAll( '.listWrap' )[ 0 ],
 	list: document.querySelectorAll( '.listWrap li' ),
 } );
+“
 
 #option
 ##jquery option
