@@ -44,6 +44,15 @@ new SlideSwipe( {
 } );
 ```
 
+##method
++ toPrev: 이전 슬라이더 이동
++ toNext: 다음 슬라이더 이동
++ toSlide(index): 지정된 슬라이더 이동
++ destory: 제거
++ getPos: 현재 슬라이더 인덱스
++ startSlideShow: 슬라이더쇼 시작
++ stopSlideShow: 슬라이더쇼 정지
+
 ##option
 
 ####jquery option
