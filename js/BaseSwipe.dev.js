@@ -70,15 +70,6 @@
 		} );
 	};
 
-	/**
-	 * @method: 슬라이더 업데이트
-	 */
-	$.fn.slideSwipe2update = function( _$list ) {
-		return this.each( function( ) {
-			$( this ).data( 'ss' ).update( _$list.toArray( ) );
-		} );
-	};
-
 	/**s
 	 * @method: 슬라이드 제거
 	 */
@@ -669,11 +660,8 @@ function SlideSwipe( __setting ) {
 			pos_arr = [],
 			pos = 0,
 			len = 0,
-			idx = getIdx( );
-
-		if ( is_Move ) {
-			// return false;	
-		}
+			idx = 0,
+			i = 0;
 
 		list_Dom = helper.isArray( _list_dom ) ? _list_dom : helper.dom2Array( _list_dom );
 		list_Len = len = list_Dom.length;
@@ -699,11 +687,7 @@ function SlideSwipe( __setting ) {
 			list_Len = len = 4;
 		}
 
-		for( var i = 0; i < len; i++ ) {
-
-			if ( list_Dom[ i ].getAttribute( 'data-mark' ) === 's4s-item' ) { // 설정되어있으면 다음으로
-				continue;
-			}
+		for( i = 0; i < len; i++ ) {
 
 			// 루프이면서 마지막노드는 왼쪽으로 재설정
 			pos = setting.loop && len - 1 === i ? -100 : ( i * 100 ) - ( idx * 100 ); 
@@ -719,13 +703,9 @@ function SlideSwipe( __setting ) {
 			list_Dom[ i ].addEventListener( 'blur', startSlideShow, false );
 			helperCss3.setTransitEnd( list_Dom[ i ], setMoveAfter );
 			helperCss3.setAnimateEnd( list_Dom[ i ], animationEnd );
-
-			console.log( i, pos )
-			console.log( list_Dom[ i ] );
-			console.log('===============================')
 		}
 
-		list_Pos_Arr = list_Pos_Arr.concat( pos_arr );
+		list_Pos_Arr = pos_arr.slice( );
 		helperCss3.setTransitList( );
 	}
 
@@ -956,8 +936,7 @@ function SlideSwipe( __setting ) {
 			toNext: toNext,
 			toPrev: toPrev,
 			toSlide: toSlide,
-			destory: destory,
-			update: update
+			destory: destory
 		};
 	}
 }
