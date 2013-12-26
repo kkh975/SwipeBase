@@ -36,7 +36,7 @@
 				<h1>Example</h1>
 			</header>
 
-			<!-- Default --
+			<!-- Default -->
 			<section class="section-1">
 				<header>
 					<h1>기본</h1>
@@ -87,7 +87,7 @@
 				</script>
 			</section>
 
-			<!-- None loop --
+			<!-- None loop -->
 			<section class="section-2">
 				<header>
 					<h1>루프가 아닐떄</h1>
@@ -139,7 +139,7 @@
 				</script>
 			</section>
 
-			<!-- Length 2 --
+			<!-- Length 2 -->
 			<section class="section-3">
 				<header>
 					<h1>슬라이드가 두개일때</h1>
@@ -189,7 +189,7 @@
 				</script>
 			</section>
 
-			<!-- Length 2 && None loop --
+			<!-- Length 2 && None loop -->
 			<section class="section-4">
 				<header>
 					<h1>슬라이드가 2개이면서 루프가 아닐떄</h1>
@@ -251,8 +251,8 @@
 					<ul class="list">
 						<li><div style="background: red;">0</div></li>
 						<li><div style="background: brown;">1</div></li>
-						<!-- <li><div style="background: orange;">2</div></li> -->
-						<!-- <li><div style="background: green;">3</div></li> -->
+						<li><div style="background: orange;">2</div></li>
+						<li><div style="background: green;">3</div></li>
 					</ul>
 				</div>
 
@@ -290,15 +290,6 @@
 						toNext: Dsec5.querySelectorAll( '.to-next' ),
 						create: function( ) {
 							Ddisp.innerHTML = 'create';
-
-							slide.toSlide( 1 );
-
-							// setTimeout( function(  ) {
-							// 	var Dli = document.createElement( 'li' );
-							// 	Dli.innerHTML = '<div style="background: blue">4</div>';
-							// 	Dlist.appendChild( Dli );
-							// 	slide.update( Dlist.querySelectorAll( 'li' ) );
-							// }, 1500 );
 						},
 						before: function( idx ) {
 							Ddisp.innerHTML = 'before: ' + idx;
@@ -310,7 +301,7 @@
 				</script>
 			</section>
 
-			<!-- length 1 --
+			<!-- length 1 -->
 			<section class="section-6">
 				<header>
 					<h1>1개일때</h1>
