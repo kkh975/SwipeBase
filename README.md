@@ -1,14 +1,13 @@
 BaseSwipe
 =========
 
-#소개
+##Introduce
+모바일 사이트에서 많이 사용되어지는 플리킹 플러그인입니다. 자바스크립트와 jQuery 동시에 지원하며 슬라이더의 무한 루프와 페이징 기능등 많이 사용되어지는 기능을 넣었습니다.
 
-
-#사용법
+##How to Uas
+####html
 아래와 같이 감싸는 태그와 리스트 태그, 그리고 리스트의 아이템 태그로 작성합니다.
-
-##html
-“
+```html
 <div class="listWrap">
   <ul class="list">
 		<li><div style="background: red;">0</div></li>
@@ -16,11 +15,11 @@ BaseSwipe
 		<li><div style="background: orange;">2</div></li>
 	</ul>
 </div>
-“
+```
 
-##css
+####css
 아래와 같이 길이와 높이값을 반드시 기입해야 합니다.
-“
+```csss
 .listWrap {
 	width: 100%;
 	height: 100px;
@@ -29,23 +28,25 @@ BaseSwipe
 	width: 100%;
 	height: 100px;
 }
-“
+```
 
-##javascript
+####javascript
 jquery 플러그인을 작성할 경우 아래와 같이 작성합니다.
-“
+```javascript
 $( '.listWrap' ).slideSwipe( );
-“
+```
+
 javascript으로 작성할 경우 아래와 같이 작성합니다.
-“
+```javascript
 new SlideSwipe( {
 	wrap: document.querySelectorAll( '.listWrap' )[ 0 ],
 	list: document.querySelectorAll( '.listWrap li' ),
 } );
-“
+```
 
-#option
-##jquery option
+##option
+
+####jquery option
 + $wrap: {jQuery Selector} (default: $( this ).find( 'ul' )) 리스트 감쌈
 + $list: {jQuery Selector} (default: $( this ).find( 'ul li' )) 리스트
 + $pages: {jQuery Selector} (default: null) 슬라이드 이동 버튼
@@ -54,7 +55,7 @@ new SlideSwipe( {
 + $toPrev: {jQuery Selector} (default: null) 이전 이동 버튼
 + $toNext: {jQuery Selector} (default: null) 다음 이동 버튼
 						
-##javascript option
+####javascript option
 + wrap: required {elements} (default: null) 리스트 감쌈
 + list: required {elements} (default: null) 리스트
 + pages: {elements} (default: null) 슬라이드 이동 버튼
@@ -63,7 +64,7 @@ new SlideSwipe( {
 + toPrev: {elements} (default: null) 이전 이동 버튼
 + toNext: {elements} (default: null) 다음 이동 버튼
 
-##common option
+####common option
 + startEvents: {Array} (default: ['click', 'mouseover']) toStart element 이벤트
 + stopEvents: {Array} (default: ['click', 'mouseover']) toStop element 이벤트
 + moveEvents: {Array} (default: ['click', 'mouseover']) toPrev and toNext element 이벤트
