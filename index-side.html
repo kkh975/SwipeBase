@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/layout.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="js/BaseSwipe.min.js"></script>
+	<script type="text/javascript" src="js/BaseSwipeSide.js"></script>
 </head>
 <body>
 	<main>
@@ -31,9 +31,26 @@
 
 				<div class="listWrap">
 					<ul class="list">
-						<li><div style="background: red;"><a href="#" style="display: block;">0</a></div></li>
-						<li><div style="background: brown;"><a href="#" style="display: block;">1</a></div></li>
-						<li><div style="background: orange;"><a href="#" style="display: block;">2</a></div></li>
+						<li>
+							<div style="background: red;">
+								<a href="#" style="display: block;">0</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: brown;">
+								<a href="#" style="display: block;">1</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: orange;">
+								<a href="#" style="display: block;">2</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: blue;">
+								<a href="#" style="display: block;">3</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 
@@ -230,62 +247,9 @@
 			</section>
 			<!-- Length 2 && None loop // -->
 
-			<!-- // Javascript -->
-			<section class="section-5">
-				<header>
-					<h1>자바스크립트</h1>
-					<h2>상황: <span class="ststus-display">0</span></h2>
-				</header>
-
-				<div class="listWrap">
-					<ul class="list">
-						<li><div style="background: red;">0</div></li>
-						<li><div style="background: brown;">1</div></li>
-						<li><div style="background: orange;">2</div></li>
-					</ul>
-				</div>
-
-				<div class="btns">
-					<button class="to-start">start</button>
-					<button class="to-stop">stop</button>
-					<button class="to-prev">prev</button>
-					<button class="to-next">next</button>
-
-					<div class="pages">
-						<button type="button">0</button>
-						<button type="button">1</button>
-						<button type="button">2</button>
-						<button type="button">3</button>
-						<button type="button">4</button>
-						<button type="button">5</button>
-					</div>
-				</div>
-
-				<script type="text/javascript">
-					new baseSwipe({
-						list: document.querySelectorAll( '.section-5 .listWrap ul li' ),
-						wrap: document.querySelectorAll( '.section-5 .listWrap ul' ),
-						pages: document.querySelectorAll( '.section-5 .pages button' ),
-						toStart: document.querySelectorAll( '.section-5 .to-start' ),
-						toStop: document.querySelectorAll( '.section-5 .to-stop' ),
-						toPrev: document.querySelectorAll( '.section-5 .to-prev' ),
-						toNext: document.querySelectorAll( '.section-5 .to-next' ),
-						create: function( ) {
-							document.querySelectorAll( '.section-5 span.ststus-display' )[ 0 ].innerHTML = 'create';
-						},
-						before: function( idx ) {
-							document.querySelectorAll( '.section-5 span.ststus-display' )[ 0 ].innerHTML = 'before: ' + idx;
-						},
-						active: function( idx ) {
-							document.querySelectorAll( '.section-5 span.ststus-display' )[ 0 ].innerHTML = 'after: ' + idx;
-						}
-					});
-				</script>
-			</section>
-			<!-- Javascript // -->
-
 		</div>
 		<!-- example // -->
+
 	</main>
 
 	<footer class="wrap-footer">

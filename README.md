@@ -33,12 +33,12 @@ BaseSwipe
 ####javascript
 jquery 플러그인을 작성할 경우 아래와 같이 작성합니다.
 ```javascript
-$( '.listWrap' ).slideSwipe( );
+$( '.listWrap' ).baseSwipe( );
 ```
 
 javascript으로 작성할 경우 아래와 같이 작성합니다.
 ```javascript
-new SlideSwipe( {
+new baseSwipe( {
 	wrap: document.querySelectorAll( '.listWrap' )[ 0 ],
 	list: document.querySelectorAll( '.listWrap li' ),
 } );
@@ -89,4 +89,5 @@ new SlideSwipe( {
 Copyrights
 ----------
 - license: http://blim.mit-license.org/
+- site: http://www.blim.co.kr/
 - email: kkh975@naver.com
