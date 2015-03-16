@@ -8,21 +8,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<link rel="stylesheet" href="css/layout.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="js/BaseSwipe.min.js"></script>
+	<script type="text/javascript" src="js/BaseSwipe.js"></script>
 </head>
 <body>
 	<main>
-
 		<!-- example -->
 		<div class="ex wrap">
 			<header>
 				<h1>Example</h1>
 			</header>
 
-			<!-- // Default -->
+			<!-- Default -->
 			<section class="section-1">
 				<header>
 					<h1>기본</h1>
@@ -31,9 +29,21 @@
 
 				<div class="listWrap">
 					<ul class="list">
-						<li><div style="background: red;"><a href="#" style="display: block;">0</a></div></li>
-						<li><div style="background: brown;"><a href="#" style="display: block;">1</a></div></li>
-						<li><div style="background: orange;"><a href="#" style="display: block;">2</a></div></li>
+						<li>
+							<div style="background: red;">
+								<a href="" target="">0</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: brown;">
+								<a href="" target="">1</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: orange;">
+								<a href="" target="">2</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 
@@ -60,21 +70,20 @@
 						$toStop: $( '.section-1 .to-stop' ),
 						$toPrev: $( '.section-1 .to-prev' ),
 						$toNext: $( '.section-1 .to-next' ),
-						create: function( ) {
+						create: function(){
 							$( '.section-1 span.ststus-display' ).text( 'create' );
 						},
-						before: function( idx ) {
+						before: function( idx ){
 							$( '.section-1 span.ststus-display' ).text( 'before: ' + idx );
 						},
-						active: function( idx ) {
+						active: function( idx ){
 							$( '.section-1 span.ststus-display' ).text( 'after: ' + idx );
 						}
 					});
 				</script>
 			</section>
-			<!-- Default // -->
 
-			<!-- // None loop -->
+			<!-- None loop -->
 			<section class="section-2">
 				<header>
 					<h1>루프가 아닐떄</h1>
@@ -83,9 +92,21 @@
 
 				<div class="listWrap">
 					<ul class="list">
-						<li><div style="background: red;">0</div></li>
-						<li><div style="background: brown;">1</div></li>
-						<li><div style="background: orange;">2</div></li>
+						<li>
+							<div style="background: red;">
+								<a href="" target="">0</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: brown;">
+								<a href="" target="">1</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: orange;">
+								<a href="" target="">2</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 
@@ -113,21 +134,20 @@
 						$toPrev: $( '.section-2 .to-prev' ),
 						$toNext: $( '.section-2 .to-next' ),
 						loop: false,
-						create: function( ) {
+						create: function(){
 							$( '.section-2 span.ststus-display' ).text( 'create' );
 						},
-						before: function( idx ) {
+						before: function( idx ){
 							$( '.section-2 span.ststus-display' ).text( 'before: ' + idx );
 						},
-						active: function( idx ) {
+						active: function( idx ){
 							$( '.section-2 span.ststus-display' ).text( 'after: ' + idx );
 						}
 					});
 				</script>
 			</section>
-			<!-- None loop // -->
 
-			<!-- // Length 2 -->
+			<!-- Length 2 -->
 			<section class="section-3">
 				<header>
 					<h1>슬라이드가 두개일때</h1>
@@ -136,8 +156,16 @@
 
 				<div class="listWrap">
 					<ul class="list">
-						<li><div style="background: red;">0</div></li>
-						<li><div style="background: brown;">1</div></li>
+						<li>
+							<div style="background: red;">
+								<a href="" target="">0</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: brown;">
+								<a href="" target="">1</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 
@@ -164,21 +192,20 @@
 						$toStop: $( '.section-3 .to-stop' ),
 						$toPrev: $( '.section-3 .to-prev' ),
 						$toNext: $( '.section-3 .to-next' ),
-						create: function( ) {
+						create: function(){
 							$( '.section-3 span.ststus-display' ).text( 'create' );
 						},
-						before: function( idx ) {
+						before: function( idx ){
 							$( '.section-3 span.ststus-display' ).text( 'before: ' + idx );
 						},
-						active: function( idx ) {
+						active: function( idx ){
 							$( '.section-3 span.ststus-display' ).text( 'after: ' + idx );
 						}
 					});
 				</script>
 			</section>
-			<!-- Length 2 // -->
 
-			<!-- // Length 2 && None loop -->
+			<!-- Length 2 && None loop -->
 			<section class="section-4">
 				<header>
 					<h1>슬라이드가 2개이면서 루프가 아닐떄</h1>
@@ -187,8 +214,16 @@
 
 				<div class="listWrap">
 					<ul class="list">
-						<li><div style="background: red;">0</div></li>
-						<li><div style="background: brown;">1</div></li>
+						<li>
+							<div style="background: red;">
+								<a href="" target="">0</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: brown;">
+								<a href="" target="">1</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 
@@ -216,21 +251,20 @@
 						$toPrev: $( '.section-4 .to-prev' ),
 						$toNext: $( '.section-4 .to-next' ),
 						loop: false,
-						create: function( ) {
+						create: function(){
 							$( '.section-4 span.ststus-display' ).text( 'create' );
 						},
-						before: function( idx ) {
+						before: function( idx ){
 							$( '.section-4 span.ststus-display' ).text( 'before: ' + idx );
 						},
-						active: function( idx ) {
+						active: function( idx ){
 							$( '.section-4 span.ststus-display' ).text( 'after: ' + idx );
 						}
 					});
 				</script>
 			</section>
-			<!-- Length 2 && None loop // -->
 
-			<!-- // Javascript -->
+			<!-- Javascript -->
 			<section class="section-5">
 				<header>
 					<h1>자바스크립트</h1>
@@ -239,9 +273,21 @@
 
 				<div class="listWrap">
 					<ul class="list">
-						<li><div style="background: red;">0</div></li>
-						<li><div style="background: brown;">1</div></li>
-						<li><div style="background: orange;">2</div></li>
+						<li>
+							<div style="background: red;">
+								<a href="" target="">0</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: brown;">
+								<a href="" target="">1</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: orange;">
+								<a href="" target="">2</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 
@@ -262,27 +308,29 @@
 				</div>
 
 				<script type="text/javascript">
-					new baseSwipe({
-						list: document.querySelectorAll( '.section-5 .listWrap ul li' ),
-						wrap: document.querySelectorAll( '.section-5 .listWrap ul' ),
-						pages: document.querySelectorAll( '.section-5 .pages button' ),
-						toStart: document.querySelectorAll( '.section-5 .to-start' ),
-						toStop: document.querySelectorAll( '.section-5 .to-stop' ),
-						toPrev: document.querySelectorAll( '.section-5 .to-prev' ),
-						toNext: document.querySelectorAll( '.section-5 .to-next' ),
-						create: function( ) {
-							document.querySelectorAll( '.section-5 span.ststus-display' )[ 0 ].innerHTML = 'create';
+					var Dsec5 = document.querySelectorAll( '.section-5' )[ 0 ];
+					var Ddisp = Dsec5.querySelectorAll( 'span.ststus-display' )[ 0 ];
+					var Dlist = Dsec5.querySelectorAll( '.listWrap ul' )[ 0 ];
+					var slide = new BaseSwipe({
+						wrap: Dlist,
+						list: Dlist.querySelectorAll( 'li' ),
+						pages: Dsec5.querySelectorAll( '.pages button' ),
+						toStart: Dsec5.querySelectorAll( '.to-start' ),
+						toStop: Dsec5.querySelectorAll( '.to-stop' ),
+						toPrev: Dsec5.querySelectorAll( '.to-prev' ),
+						toNext: Dsec5.querySelectorAll( '.to-next' ),
+						create: function(){
+							Ddisp.innerHTML = 'create';
 						},
-						before: function( idx ) {
-							document.querySelectorAll( '.section-5 span.ststus-display' )[ 0 ].innerHTML = 'before: ' + idx;
+						before: function( idx ){
+							Ddisp.innerHTML = 'before: ' + idx;
 						},
-						active: function( idx ) {
-							document.querySelectorAll( '.section-5 span.ststus-display' )[ 0 ].innerHTML = 'after: ' + idx;
+						active: function( idx ){
+							Ddisp.innerHTML = 'after: ' + idx;
 						}
 					});
 				</script>
 			</section>
-			<!-- Javascript // -->
 
 		</div>
 		<!-- example // -->
