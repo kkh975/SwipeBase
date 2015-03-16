@@ -45,8 +45,7 @@ footer.wrap-footer address a {
 	color: #8C8C8C;
 }
 .wrap > section > header h2 {
-	position: absolute;
-	top: 23px; right: 0%;
+	margin-top:10px;
 	font-weight: normal;
 	font-size: 12px;
 	color: #666666;
