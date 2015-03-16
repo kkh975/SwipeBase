@@ -38,7 +38,7 @@ $( '.listWrap' ).baseSwipe( );
 
 javascript으로 작성할 경우 아래와 같이 작성합니다.
 ```javascript
-new baseSwipe( {
+new BaseSwipe( {
 	wrap: document.querySelectorAll( '.listWrap' )[ 0 ],
 	list: document.querySelectorAll( '.listWrap li' ),
 } );
