@@ -884,7 +884,7 @@ function BaseSwipe( __setting ){
 
 	if ( constructor()){
 
-		return { // 공개 함수
+		return {
 			startSlideShow: startSlideShow,
 			stopSlideShow: stopSlideShow,
 			refreshSize: refreshSize,
