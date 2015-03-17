@@ -45,13 +45,14 @@ new BaseSwipe( {
 ```
 
 ##method
-+ toPrev: 이전 슬라이더 이동
-+ toNext: 다음 슬라이더 이동
-+ toSlide(index): 지정된 슬라이더 이동
-+ destory: 제거
-+ getPos: 현재 슬라이더 인덱스
 + startSlideShow: 슬라이더쇼 시작
 + stopSlideShow: 슬라이더쇼 정지
++ refreshSize: 크기 재반영
++ getIdx: {index} 현재 슬라이더 인덱스
++ toNext: 다음 슬라이더 이동
++ toPrev: 이전 슬라이더 이동
++ toSlide: 지정된 슬라이더 이동
++ destory: 제거
 
 ##option
 

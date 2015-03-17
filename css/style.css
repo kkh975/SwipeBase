@@ -1,7 +1,6 @@
 @charset "utf-8";
 
 /**
- * @date 2013-07-04
  * @author Koo Chi Hoon(SK MNS)
  */
 
@@ -65,12 +64,12 @@ footer.wrap-footer address a {
 .ex .listWrap {
 	margin: 0px auto;
 	margin-top: 5px;
-	width: 100%; /* You must have a attribute! */
-	height: 100px; /* You must have a attribute! */
+	width: 100%; /* required */
+	height: 100px; /* required */
 }
 .ex .list li {
-	width: 100%; /* You must have a attribute! */
-	height: 100px; /* You must have a attribute! */
+	width: 100%; /* required */
+	height: 100px; /* required */
 }
 .ex .list li > div {
 	width: 100%;
