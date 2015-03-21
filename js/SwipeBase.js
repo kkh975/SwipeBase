@@ -421,7 +421,6 @@ function SwipeBase( __setting ){
 				can_move = is_to_next ? touchEvents.canNextMove() : touchEvents.canPrevMove();
 			
 			if ( touchEvents.is_touch_start && e.type === 'touchend' ){
-
 				if ( over_touch && can_move ){
 					is_Move = false;
 					is_to_next ? toNext() : toPrev();
@@ -804,7 +803,6 @@ function SwipeBase( __setting ){
 			helper.setCss3( D_List[ now_idx ], 'animation', now_animate_name + ' ' + _time + 'ms' );
 			helper.setCss3( D_List[ to_idx ], 'animation', to_animate_name + ' ' + _time + 'ms' );
 		} else { 
-
 			// touch로 접근시
 			// 사용자가 빠르게 터치해서 이미 끝으로 도달 했을 시
 			if ( now_pos % BASE_DISTANCE === 0 ){ 

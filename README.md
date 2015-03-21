@@ -4,8 +4,7 @@ SwipeBase
 ##Introduce
 모바일 사이트에서 많이 사용되어지는 플리킹 플러그인입니다. jQuery plugin을 지원하며 슬라이더의 무한 루프와 페이징 기능등이 있습니다.
 
-[Demo](https://kkh975.github.io/SwipeBase).
-
+[Demo](https://kkh975.github.io/SwipeBase)
 
 ##How to Use
 ####html
