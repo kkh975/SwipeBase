@@ -103,7 +103,7 @@ function SwipeBase( __setting ){
 		is_Move          = false,
 		list_Width       = 0,
 		list_Len         = 0,
-		list_Pos_Arr     = [],			// item별 위치
+		list_Pos_Arr     = [],	// item별 위치
 		now_Idx          = 0,
 		to_Idx           = 0,
 		browser_Prefix   = {};
