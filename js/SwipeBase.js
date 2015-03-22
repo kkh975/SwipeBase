@@ -186,19 +186,19 @@ function SwipeBase( __setting ){
 				'MSAnimationEnd',
 				'oanimationEnd',
 				'webkitAnimationEnd' ]*/
-			var transitionsCss = [ '-webkit-transition', 'transition' ],
-				transformsCss = [ '-webkit-transform', 'transform' ],
-				animationsCss = [ '-webkit-animation', 'animation' ],
-				keyframesCss = [ '-webkit-keyframes', 'keyframes' ],
-				transitionsJs = [ 'webkitTransition', 'transition' ],
-				transformsJs = [ 'webkitTransform', 'transform' ],
-				animationsJs = [ 'webkitAnimation', 'animation' ],
+			var transitionsCss   = [ '-webkit-transition', 'transition' ],
+				transformsCss    = [ '-webkit-transform', 'transform' ],
+				animationsCss    = [ '-webkit-animation', 'animation' ],
+				keyframesCss     = [ '-webkit-keyframes', 'keyframes' ],
+				transitionsJs    = [ 'webkitTransition', 'transition' ],
+				transformsJs     = [ 'webkitTransform', 'transform' ],
+				animationsJs     = [ 'webkitAnimation', 'animation' ],
 				transitionsendJs = [ 'webkitTransitionEnd', 'transitionend' ],
-				animationendJs = [ 'webkitAnimationEnd', 'animationend' ],
-				styles = window.getComputedStyle( document.body, '' ),
-				prefixCss = ( Array.prototype.slice.call( styles ).join('').match( /-(webkit|moz|ms|o)-/ ) || (styles.OLink === '' && [ '', 'o' ]))[ 1 ],
-				prefixJs = ( 'WebKit|Moz|MS|O' ).match( new RegExp('(' + prefixCss + ')', 'i' ))[ 1 ],
-				isWebkit = prefixCss === 'webkit';
+				animationendJs   = [ 'webkitAnimationEnd', 'animationend' ],
+				styles           = window.getComputedStyle( document.body, '' ),
+				prefixCss        = ( Array.prototype.slice.call( styles ).join('').match( /-(webkit|moz|ms|o)-/ ) || (styles.OLink === '' && [ '', 'o' ]))[ 1 ],
+				prefixJs         = ( 'WebKit|Moz|MS|O' ).match( new RegExp('(' + prefixCss + ')', 'i' ))[ 1 ],
+				isWebkit         = prefixCss === 'webkit';
 
 			return {
 				'prefixCss': prefixCss,
@@ -313,7 +313,7 @@ function SwipeBase( __setting ){
 
 			while( --evt_idx > -1 ){
 				while( --idx > -1 ){
-					evt = helper.trim( evt_arr[ evt_idx ] );
+					evt = helper.trim( evt_arr[ evt_idx ]);
 
 					( function( __idx ){
 						_doms[ idx ].addEventListener( evt, function( e ){
@@ -446,14 +446,14 @@ function SwipeBase( __setting ){
 
 		// 플러그인에서 배열로 넘겨줄때 패스
 		// javascrit로 바로 들어오면 dom2Array
-		setting = helper.extend( default_Option, __setting );
-		D_Plist = helper.isArray( setting.wrap ) ? setting.wrap : helper.dom2Array( setting.wrap ); 
-		D_List = helper.isArray( setting.list ) ? setting.list : helper.dom2Array( setting.list ); 
+		setting    = helper.extend( default_Option, __setting );
+		D_Plist    = helper.isArray( setting.wrap ) ? setting.wrap : helper.dom2Array( setting.wrap ); 
+		D_List     = helper.isArray( setting.list ) ? setting.list : helper.dom2Array( setting.list ); 
 		D_To_Pages = helper.isArray( setting.pages ) ? setting.pages : helper.dom2Array( setting.pages );
 		D_To_Start = helper.isArray( setting.toStart ) ? setting.toStart : helper.dom2Array( setting.toStart );
-		D_To_Stop = helper.isArray( setting.toStop ) ? setting.toStop : helper.dom2Array( setting.toStop );
-		D_To_Prev = helper.isArray( setting.toPrev ) ? setting.toPrev : helper.dom2Array( setting.toPrev );
-		D_To_Next = helper.isArray( setting.toNext ) ? setting.toNext : helper.dom2Array( setting.toNext );
+		D_To_Stop  = helper.isArray( setting.toStop ) ? setting.toStop : helper.dom2Array( setting.toStop );
+		D_To_Prev  = helper.isArray( setting.toPrev ) ? setting.toPrev : helper.dom2Array( setting.toPrev );
+		D_To_Next  = helper.isArray( setting.toNext ) ? setting.toNext : helper.dom2Array( setting.toNext );
 		
 		browser_Prefix = helper.getCssPrefix();
 		list_Len = D_List.length;
@@ -583,7 +583,7 @@ function SwipeBase( __setting ){
 			css_txt += 'height: 100%; ';
 			css_txt += 'visibility: ' + ( 2 > i || list_Len - 1 === i ? 'visible' : 'hidden' );
 			D_List[ i ].style.cssText = css_txt;
-			helper.setCss3Transition( D_List[ i ], 0, list_Pos_Arr[ i ] );
+			helper.setCss3Transition( D_List[ i ], 0, list_Pos_Arr[ i ]);
 		}
 
 		// 페인트 타임으로 인하여, css3의 animate로 접근해야 함
@@ -775,12 +775,12 @@ function SwipeBase( __setting ){
 
 		setAnimateBefore();
 
-		if ( typeof setting.before === 'function' ){
-			setting.before( is_Loop_Len_2 ? now_idx % 2 : now_idx );
-		}
-
 		while( --i > -1 ){ // 선택 화면만 보이기
 			D_List[ i ].style.visibility = ( i === now_idx || i === to_idx ) ? 'visible' : 'hidden';
+		}
+
+		if ( typeof setting.before === 'function' ){
+			setting.before( is_Loop_Len_2 ? now_idx % 2 : now_idx );
 		}
 	}
 
@@ -794,7 +794,7 @@ function SwipeBase( __setting ){
 			to_idx = getToIdx(),
 			prev_idx = getPrevIdx(),
 			next_idx = getNextIdx(),
-			now_pos = helper.getCss3TransformPos( D_List[ now_idx ] );
+			now_pos = helper.getCss3TransformPos( D_List[ now_idx ]);
 
 		if ( now_pos === 0 ){
 			to_animate_name = _way === 'next' ? 'next-to-now' : 'prev-to-now';
@@ -803,8 +803,7 @@ function SwipeBase( __setting ){
 			helper.setCss3( D_List[ now_idx ], 'animation', now_animate_name + ' ' + _time + 'ms' );
 			helper.setCss3( D_List[ to_idx ], 'animation', to_animate_name + ' ' + _time + 'ms' );
 		} else { 
-			// touch로 접근시
-			// 사용자가 빠르게 터치해서 이미 끝으로 도달 했을 시
+			// touch로 접근시, 사용자가 빠르게 터치해서 이미 끝으로 도달 했을 시
 			if ( now_pos % BASE_DISTANCE === 0 ){ 
 				toSlideAnimateAfter({
 					target: D_List[ now_idx ]
@@ -812,7 +811,7 @@ function SwipeBase( __setting ){
 			} else {
 				// swipe 탄력적으로
 				// 거리:전체거리 = 남은거리(x):전체시간 -> 거리 * 전체시간 / 전체거리
-				_time = _time * ( BASE_DISTANCE - Math.abs( now_pos ) ) / BASE_DISTANCE;
+				_time = _time * ( BASE_DISTANCE - Math.abs( now_pos )) / BASE_DISTANCE;
 
 				helper.setCss3Transition( D_List[ now_idx ], _time, _way === 'next' ? -BASE_DISTANCE : BASE_DISTANCE );
 				helper.setCss3Transition( D_List[ to_idx ], _time, 0 );	
@@ -842,19 +841,19 @@ function SwipeBase( __setting ){
 		list_Pos_Arr[ now_idx ] = now_idx < to_idx ? -BASE_DISTANCE : BASE_DISTANCE;
 		list_Pos_Arr[ to_idx ] = 0;
 
-		helper.setCss3Transition( D_List[ now_idx ], 0, list_Pos_Arr[ now_idx ] );
-		helper.setCss3Transition( D_List[ to_idx ], 0, list_Pos_Arr[ to_idx ] );
+		helper.setCss3Transition( D_List[ now_idx ], 0, list_Pos_Arr[ now_idx ]);
+		helper.setCss3Transition( D_List[ to_idx ], 0, list_Pos_Arr[ to_idx ]);
 		helper.setCss3( D_List[ now_idx ], 'animation', '' );
 		helper.setCss3( D_List[ to_idx ], 'animation', '' );
 
 		if ( prev_idx !== -1 ){
 			list_Pos_Arr[ prev_idx ] = -BASE_DISTANCE;
-			helper.setCss3Transition( D_List[ prev_idx ], 0, list_Pos_Arr[ prev_idx ] );
+			helper.setCss3Transition( D_List[ prev_idx ], 0, list_Pos_Arr[ prev_idx ]);
 		}
 
 		if ( next_idx !== -1 ){
 			list_Pos_Arr[ next_idx ] = BASE_DISTANCE;
-			helper.setCss3Transition( D_List[ next_idx ], 0, list_Pos_Arr[ next_idx ] );
+			helper.setCss3Transition( D_List[ next_idx ], 0, list_Pos_Arr[ next_idx ]);
 		}
 
 		now_idx = getNowIdx();
