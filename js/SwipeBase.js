@@ -482,8 +482,7 @@ function SwipeBase( __setting ){
 		D_Plist    = helper.isArray( setting.wrap ) ? setting.wrap : helper.dom2Array( setting.wrap ); 
 		D_List     = helper.isArray( setting.list ) ? setting.list : helper.dom2Array( setting.list ); 
 
-		if ( !D_List || !D_Plist ){
-			console.log('---');
+		if ( !D_List || !D_Plist ){ // 필수요소 체크
 			return false;
 		}
 
