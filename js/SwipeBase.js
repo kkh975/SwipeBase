@@ -415,7 +415,7 @@ function SwipeBase( __setting ){
 				touchEvents.is_touch_start = true;
 				touchEvents.touch_start_x = e.touches[ 0 ].pageX;
 				touchEvents.touch_start_y = e.touches[ 0 ].pageY;
-				e.preventDefault();
+				// e.preventDefault();
 			}
 		},
 
@@ -436,9 +436,9 @@ function SwipeBase( __setting ){
 				if ( Math.abs( drag_dist ) > Math.abs( scroll_dist )){ 
 					touchEvents.move_dx = Math.max( -100, Math.min( 100, touchEvents.move_dx ));
 					helper.setListTransition( 0, touchEvents.move_dx );
-				}
 				
-				e.preventDefault();
+					e.preventDefault();
+				}
 			}
 		},
 
