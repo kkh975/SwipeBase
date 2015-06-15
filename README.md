@@ -99,6 +99,13 @@ new SwipeBase({
 + before: {Function} (default: null) 슬라이더 이동 전 콜백 함수
 + active: {Function} (default: null) 슬라이더 이동 후 콜백 함수	
 
+##Troubleshooting
+[ISSUES](https://github.com/kkh975/SwipeBase/issues).
+
+##History
++ 2015-06-02: 세로 스크롤 시 전역변수 오류 수정.
+
+
 Copyrights
 ----------
 - license: http://blim.mit-license.org/

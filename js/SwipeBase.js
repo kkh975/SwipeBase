@@ -305,6 +305,12 @@ function SwipeBase( __setting ){
 
 				helper.setCss3Transition( D_List[ i ], _speed, pos );
 			}
+
+			// 움직이없음에도 is_Move가 true로 설정되어 다운됨.
+			// 현재 보이는 위치가 0 그대로이면 is_Move를 해제
+			if ( helper.getCss3TransformPos( D_List[ now_Idx ]) === 0 ){
+				is_Move = false;
+			}
 		},
 
 		/**
@@ -312,7 +318,13 @@ function SwipeBase( __setting ){
 		 */
 		setCss3Transition: function( _dom, _speed, _pos ){
 			helper.setCss3( _dom, 'transition', _speed + 'ms' );
-			helper.setCss3( _dom, 'transform', 'translateX('+ _pos + '%)' );
+			helper.setCss3( _dom, 'transform', 'translateX('+ _pos + '%)' );	
+
+			// 움직이없음에도 is_Move가 true로 설정되어 다운됨.
+			// 현재 보이는 위치가 0 그대로이면 is_Move를 해제
+			if ( helper.getCss3TransformPos( D_List[ now_Idx ]) === 0 ){
+				is_Move = false;
+			}
 		},
 
 		/**
@@ -433,10 +445,9 @@ function SwipeBase( __setting ){
 				touchEvents.move_dx = ( drag_dist / list_Width ) * 100;			// 가로 이동 백분률
 
 				// 드래그길이가 스크롤길이 보다 클때
-				if ( Math.abs( drag_dist ) > Math.abs( scroll_dist )){ 
+				if ( Math.abs( drag_dist ) > Math.abs( scroll_dist )){
 					touchEvents.move_dx = Math.max( -100, Math.min( 100, touchEvents.move_dx ));
-					helper.setListTransition( 0, touchEvents.move_dx );
-				
+					helper.setListTransition( 0, touchEvents.move_dx );	
 					e.preventDefault();
 				}
 			}
@@ -451,18 +462,12 @@ function SwipeBase( __setting ){
 				is_to_next = touchEvents.move_dx < 0,
 				can_move = is_to_next ? touchEvents.canNextMove() : touchEvents.canPrevMove();
 			
-			if ( touchEvents.is_touch_start && e.type === 'touchend' ){
-				if ( over_touch && can_move ){
-					// 이전이나 이후로 가려면 is_Move해제 후 이동
-					is_Move = false;
-					is_to_next ? toNext() : toPrev();
-				} else {
-					helper.setListTransition( setting.duration, 0 );
-				}
-			}
-
-			if ( e.type === 'touchcancel' ){
+			if ( e.type === 'touchend' && over_touch && can_move ){
+				// 이전이나 이후로 가려면 is_Move해제 후 이동
 				is_Move = false;
+				is_to_next ? toNext() : toPrev();
+			} else {
+				helper.setListTransition( setting.duration, 0 );
 			}
 			
 			touchEvents.setInitVaiable();
@@ -601,25 +606,23 @@ function SwipeBase( __setting ){
 
 		list_Width = D_Wrap.offsetWidth;
 
-		css_txt = 'overflow: hidden;'
-		D_Wrap.style.cssText = css_txt;
+		D_Wrap.style.overflow = 'hidden';
 		helper.setCss3( D_Wrap, 'user-select', 'none' );
 
-		css_txt = 'position: relative; ';
-		css_txt += 'width: 100%; ';
-		css_txt += 'height: 100%; ';
-		D_Plist.style.cssText = css_txt;
+		D_Plist.style.position = 'relative';
+		D_Plist.style.height   = '100%';
+		D_Plist.style.width    = '100%';
 		helper.setCss3( D_Plist, 'transform-style', 'preserve-3d' );
 
 		for ( i = 0, len = list_Len; i < len; i++ ){
 			pos = setting.loop && list_Len - 1 === i ? -BASE_DISTANCE : BASE_DISTANCE * i;
 			list_Pos_Arr.push( pos );
 
-			css_txt = 'position: absolute; ';
-			css_txt += 'width: 100%; ';
-			css_txt += 'height: 100%; ';
-			css_txt += 'visibility: ' + ( 2 > i || list_Len - 1 === i ? 'visible' : 'hidden' );
-			D_List[ i ].style.cssText = css_txt;
+			D_List[ i ].style.position   = 'absolute';
+			D_List[ i ].style.height     = '100%';
+			D_List[ i ].style.width      = '100%';
+			D_List[ i ].style.visibility = ( 2 > i || list_Len - 1 === i ? 'visible' : 'hidden' );
+
 			helper.setCss3Transition( D_List[ i ], 0, list_Pos_Arr[ i ]);
 		}
 
