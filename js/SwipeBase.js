@@ -102,6 +102,7 @@ function SwipeBase( __setting ){
 		is_Slide_Show    = false,
 		is_Move          = false,
 		list_Width       = 0,
+		space_Width      = 0,
 		list_Len         = 0,
 		list_Pos_Arr     = [],	// item별 위치
 		now_Idx          = 0,
@@ -232,17 +233,17 @@ function SwipeBase( __setting ){
 				isWebkit         = prefixCss === 'webkit';
 
 			return {
-				'prefixCss': prefixCss,
-				'prefixJs': prefixJs.toLowerCase(),
-				'transitionsCss': transitionsCss[ isWebkit ? 0 : 1 ],
-				'transformsCss': transformsCss[ isWebkit ? 0 : 1 ],
-				'keyframesCss': keyframesCss[ isWebkit ? 0 : 1 ],
-				'animationsCss': animationsCss[ isWebkit ? 0 : 1 ],
-				'transformsJs': transformsJs[ isWebkit ? 0 : 1 ],
-				'transitionsJs': transitionsJs[ isWebkit ? 0 : 1 ],
-				'animationsJs': animationsJs[ isWebkit ? 0 : 1 ],
-				'transitionsendJs': transitionsendJs[ isWebkit ? 0 : 1 ],
-				'animationendJs': animationendJs[ isWebkit ? 0 : 1 ]
+				'prefixCss'        : prefixCss,
+				'prefixJs'         : prefixJs.toLowerCase(),
+				'transitionsCss'   : transitionsCss[ isWebkit ? 0 : 1 ],
+				'transformsCss'    : transformsCss[ isWebkit ? 0 : 1 ],
+				'keyframesCss'     : keyframesCss[ isWebkit ? 0 : 1 ],
+				'animationsCss'    : animationsCss[ isWebkit ? 0 : 1 ],
+				'transformsJs'     : transformsJs[ isWebkit ? 0 : 1 ],
+				'transitionsJs'    : transitionsJs[ isWebkit ? 0 : 1 ],
+				'animationsJs'     : animationsJs[ isWebkit ? 0 : 1 ],
+				'transitionsendJs' : transitionsendJs[ isWebkit ? 0 : 1 ],
+				'animationendJs'   : animationendJs[ isWebkit ? 0 : 1 ]
 			};
 		},
 
@@ -467,7 +468,7 @@ function SwipeBase( __setting ){
 				is_Move = false;
 				is_to_next ? toNext() : toPrev();
 			} else {
-				helper.setListTransition( setting.duration, 0 );
+				helper.setListTransition( setting.duration, 0 + space_Width );
 			}
 			
 			touchEvents.setInitVaiable();
@@ -599,38 +600,34 @@ function SwipeBase( __setting ){
 	 */
 	function setInitStyle(){
 		var css_dom = null,
-			css_txt = '',
-			pos = 0,
-			len = 0,
-			i = 0;
-
-		list_Width = D_Wrap.offsetWidth;
+			css_txt = '';
 
 		D_Wrap.style.overflow = 'hidden';
-		helper.setCss3( D_Wrap, 'user-select', 'none' );
 
 		D_Plist.style.position = 'relative';
 		D_Plist.style.height   = '100%';
 		D_Plist.style.width    = '100%';
 		helper.setCss3( D_Plist, 'transform-style', 'preserve-3d' );
 
-		for ( i = 0, len = list_Len; i < len; i++ ){
+		list_Width  = D_Wrap.offsetWidth;
+		space_Width = ( 100 - ( ( D_List[ 0 ].offsetWidth / list_Width ) * 100 ) ) / 2;
+
+		for ( var i = 0, len = list_Len, pos = 0; i < len; i++ ){
 			pos = setting.loop && list_Len - 1 === i ? -BASE_DISTANCE : BASE_DISTANCE * i;
 			list_Pos_Arr.push( pos );
 
 			D_List[ i ].style.position   = 'absolute';
 			D_List[ i ].style.height     = '100%';
-			D_List[ i ].style.width      = '100%';
 			D_List[ i ].style.visibility = ( 2 > i || list_Len - 1 === i ? 'visible' : 'hidden' );
 
-			helper.setCss3Transition( D_List[ i ], 0, list_Pos_Arr[ i ]);
+			helper.setCss3Transition( D_List[ i ], 0, list_Pos_Arr[ i ] + space_Width );
 		}
 
 		// 페인트 타임으로 인하여, css3의 animate로 접근해야 함
-		css_txt = helper.getCss3AnimateTranslate( 'next-to-now', BASE_DISTANCE, 0 );
-		css_txt += helper.getCss3AnimateTranslate( 'now-to-prev', 0, -BASE_DISTANCE );
-		css_txt += helper.getCss3AnimateTranslate( 'prev-to-now', -BASE_DISTANCE, 0 );
-		css_txt += helper.getCss3AnimateTranslate( 'now-to-next', 0, BASE_DISTANCE );
+		css_txt = helper.getCss3AnimateTranslate( 'next-to-now', BASE_DISTANCE + space_Width, 0 + space_Width );
+		css_txt += helper.getCss3AnimateTranslate( 'now-to-prev', 0 + space_Width, -BASE_DISTANCE + space_Width );
+		css_txt += helper.getCss3AnimateTranslate( 'prev-to-now', -BASE_DISTANCE + space_Width, 0 + space_Width );
+		css_txt += helper.getCss3AnimateTranslate( 'now-to-next', 0 + space_Width, BASE_DISTANCE + space_Width );
 
 		css_dom = document.createElement( 'style' );
 		css_dom.setAttribute( 'type', 'text/css' );
@@ -695,6 +692,7 @@ function SwipeBase( __setting ){
 	 */
 	function refreshSize(){
 		list_Width = D_Wrap.offsetWidth;
+		space_Width = ( 100 - ( ( D_List[ 0 ].offsetWidth / list_Width ) * 100 ) ) / 2;
 	}
 
 	/**
@@ -836,7 +834,7 @@ function SwipeBase( __setting ){
 			next_idx = getNextIdx(),
 			now_pos = helper.getCss3TransformPos( D_List[ now_idx ]);
 
-		if ( now_pos === 0 ){
+		if ( now_pos.toFixed( 2 ) === space_Width.toFixed( 2 ) ){
 			to_animate_name = _way === 'next' ? 'next-to-now' : 'prev-to-now';
 			now_animate_name = _way === 'next' ? 'now-to-prev' : 'now-to-next';
 
@@ -844,17 +842,19 @@ function SwipeBase( __setting ){
 			helper.setCss3( D_List[ to_idx ], 'animation', to_animate_name + ' ' + _time + 'ms' );
 		} else { 
 			// touch로 접근시, 사용자가 빠르게 터치해서 이미 끝으로 도달 했을 시
-			if ( now_pos % BASE_DISTANCE === 0 ){ 
-				toSlideAnimateAfter({
-					target: D_List[ now_idx ]
-				});
+			if ( now_pos % BASE_DISTANCE == 0 ){ 
+				// 남은 거리만큼의 시간
+				_time = _time / space_Width;
+
+				helper.setCss3Transition( D_List[ now_idx ], _time, ( _way === 'next' ? -BASE_DISTANCE : BASE_DISTANCE ) + space_Width );
+				helper.setCss3Transition( D_List[ to_idx ], _time, 0 + space_Width );
 			} else {
 				// swipe 탄력적으로
 				// 거리:전체거리 = 남은거리(x):전체시간 -> 거리 * 전체시간 / 전체거리
 				_time = _time * ( BASE_DISTANCE - Math.abs( now_pos )) / BASE_DISTANCE;
 
-				helper.setCss3Transition( D_List[ now_idx ], _time, _way === 'next' ? -BASE_DISTANCE : BASE_DISTANCE );
-				helper.setCss3Transition( D_List[ to_idx ], _time, 0 );	
+				helper.setCss3Transition( D_List[ now_idx ], _time, ( _way === 'next' ? -BASE_DISTANCE : BASE_DISTANCE ) + space_Width );
+				helper.setCss3Transition( D_List[ to_idx ], _time, 0 + space_Width );	
 			}
 		}
 	}
@@ -863,11 +863,11 @@ function SwipeBase( __setting ){
 	 * @method: 슬라이더 애니메이션 이후
 	 */
 	function toSlideAnimateAfter( e ){
-		var now_idx = getNowIdx(),
-			to_idx = getToIdx(),
+		var now_idx  = getNowIdx(),
+			to_idx   = getToIdx(),
 			prev_idx = 0,
 			next_idx = 0,
-			i = list_Len;
+			i        = list_Len;
 
 		// 두 개의 애니메이션 슬라이드 중 한번만 실행 
 		if ( parseInt( e.target.getAttribute( 'data-swipe-idx' ), 10 ) !== now_idx ){
@@ -878,22 +878,22 @@ function SwipeBase( __setting ){
 		prev_idx = getPrevIdx();
 		next_idx = getNextIdx();
 
-		list_Pos_Arr[ now_idx ] = now_idx < to_idx ? -BASE_DISTANCE : BASE_DISTANCE;
+		list_Pos_Arr[ now_idx ] = ( now_idx < to_idx ? -BASE_DISTANCE : BASE_DISTANCE );
 		list_Pos_Arr[ to_idx ] = 0;
 
-		helper.setCss3Transition( D_List[ now_idx ], 0, list_Pos_Arr[ now_idx ]);
-		helper.setCss3Transition( D_List[ to_idx ], 0, list_Pos_Arr[ to_idx ]);
+		helper.setCss3Transition( D_List[ now_idx ], 0, list_Pos_Arr[ now_idx ] + space_Width );
+		helper.setCss3Transition( D_List[ to_idx ], 0, list_Pos_Arr[ to_idx ]  + space_Width );
 		helper.setCss3( D_List[ now_idx ], 'animation', '' );
 		helper.setCss3( D_List[ to_idx ], 'animation', '' );
 
 		if ( prev_idx !== -1 ){
 			list_Pos_Arr[ prev_idx ] = -BASE_DISTANCE;
-			helper.setCss3Transition( D_List[ prev_idx ], 0, list_Pos_Arr[ prev_idx ]);
+			helper.setCss3Transition( D_List[ prev_idx ], 0, list_Pos_Arr[ prev_idx ] + space_Width );
 		}
 
 		if ( next_idx !== -1 ){
 			list_Pos_Arr[ next_idx ] = BASE_DISTANCE;
-			helper.setCss3Transition( D_List[ next_idx ], 0, list_Pos_Arr[ next_idx ]);
+			helper.setCss3Transition( D_List[ next_idx ], 0, list_Pos_Arr[ next_idx ] + space_Width );
 		}
 
 		now_idx = getNowIdx();

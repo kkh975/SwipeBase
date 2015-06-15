@@ -91,6 +91,8 @@ footer.wrap-footer address a {
 	text-align: center;
 	font-size: 30px;
 	color: #fff;
+	webkit-user-select: none;
+		   user-select: none;
 }
 .ex .list li > div a {
 	display: block;
