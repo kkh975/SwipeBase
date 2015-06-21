@@ -10,15 +10,16 @@
 	 * @method: 슬라이더 플러그인
 	 */
 	$.fn.swipeBase = function( option ){
-		option.$list   = option.$list ? option.$list : $( this ).find( '> ul > li' );
-		option.$wrap   = option.$wrap ? option.$wrap : $( this ).find( '> ul' );
-		option.wrap    = option.$wrap ? option.$wrap.toArray() : [];
-		option.list    = option.$list ? option.$list.toArray() : [];
-		option.pages   = option.$pages ? option.$pages.toArray() : [];
-		option.toStart = option.$toStart ? option.$toStart.toArray() : [];
-		option.toStop  = option.$toStop ? option.$toStop.toArray() : [];
-		option.toPrev  = option.$toPrev ? option.$toPrev.toArray() : [];
-		option.toNext  = option.$toNext ? option.$toNext.toArray() : [];
+		option         = option || {};
+		option.$list   = option.$list || $( this ).find( '> ul > li' );
+		option.$wrap   = option.$wrap || $( this ).find( '> ul' );
+		option.wrap    = option.$wrap.toArray() || [];
+		option.list    = option.$list.toArray() || [];
+		option.pages   = ( option.$pages && option.$pages.toArray ) ? option.$pages.toArray() : [];
+		option.toStart = ( option.$toStart && option.$toStart.toArray ) ? option.$toStart.toArray() : [];
+		option.toStop  = ( option.$toStop && option.$toStop.toArray ) ? option.$toStop.toArray() : [];
+		option.toPrev  = ( option.$toPrev && option.$toPrev.toArray ) ? option.$toPrev.toArray() : [];
+		option.toNext  = ( option.$toNext && option.$toNext.toArray ) ? option.$toNext.toArray() : [];
 
 		return this.each( function(){
 			$( this ).data( 'swipeBase', new SwipeBase( option ));
@@ -109,28 +110,27 @@ function SwipeBase( __setting ){
 		browser_Prefix   = {};
 
 	var default_Option = {
-		wrap: null,					// require, 리스트 감싸는 태그
-		list: null,					// require, 리스트
-		pages: null,				// 슬라이더 페이징 이동
-		toStart: null,				// 애니메이션 시작 버튼
-		toStop: null,				// 애니메이션 멈춤 버튼
-		toPrev: null,				// 이전 이동 버튼
-		toNext: null,				// 다음 이동 버튼
-		startEvents: 'click',		// 슬라이드쇼 시작 이벤트
-		stopEvents: 'click',		// 슬라이드쇼 정지 이벤트
-		moveEvents: 'click',		// 이동 작동 이벤트
-		pageEvents: 'click',		// 페이징 작동 이벤트
-		slideShowTime: 3000,		// 슬라이드쇼 시간
-		touchMinumRange: 10,		// 터치시 최소 이동 거리
-		loop: true,					// 무한 여부
-		duration: 300,				// 애니메이션 시간
-		create: null,				// 생성 후 콜백함수
-		before: null,				// 액션 전 콜백함수
-		active: null				// 액션 후 콜백함수
+		wrap            : null,		// require, 리스트 감싸는 태그
+		list            : null,		// require, 리스트
+		pages           : null,		// 슬라이더 페이징 이동
+		toStart         : null,		// 애니메이션 시작 버튼
+		toStop          : null,		// 애니메이션 멈춤 버튼
+		toPrev          : null,		// 이전 이동 버튼
+		toNext          : null,		// 다음 이동 버튼
+		startEvents     : 'click',	// 슬라이드쇼 시작 이벤트
+		stopEvents      : 'click',	// 슬라이드쇼 정지 이벤트
+		moveEvents      : 'click',	// 이동 작동 이벤트
+		pageEvents      : 'click',	// 페이징 작동 이벤트
+		slideShowTime   : 3000,		// 슬라이드쇼 시간
+		touchMinumRange : 10,		// 터치시 최소 이동 거리
+		loop            : true,		// 무한 여부
+		duration        : 300,		// 애니메이션 시간
+		create          : null,		// 생성 후 콜백함수
+		before          : null,		// 액션 전 콜백함수
+		active          : null		// 액션 후 콜백함수
 	};
 
-	var helper = { // 보조함수
-
+	var helper = { 
 		/**
 		 * @method: jQuery extend 기능
 		 */
@@ -149,18 +149,7 @@ function SwipeBase( __setting ){
 		 * @method: 배열 여부
 		 */
 		isArray: function( _arr ){
-			if ( _arr ){
-				return Object.prototype.toString.call( _arr ) === '[object Array]';
-			}
-
-			return false;
-		},
-
-		/**
-		 * @method: string trim
-		 */
-		trim: function( _txt ){
-			return _txt.replace( /(^\s*)|(\s*$)/gi, '' );
+			return _arr && Object.prototype.toString.call( _arr ) === '[object Array]';
 		},
 
 		/**
@@ -203,7 +192,6 @@ function SwipeBase( __setting ){
 
 		/**
 		 * @method: css3의 transition 접미사
-		 * @return: {Boolean or String}
 		 */
 		getCssPrefix: function(){
 			/*TRANSITIONENDEVENT_VENDORS = [
@@ -228,24 +216,21 @@ function SwipeBase( __setting ){
 				isWebkit         = prefixCss === 'webkit';
 
 			return {
-				'prefixCss': prefixCss,
-				'prefixJs': prefixJs.toLowerCase(),
-				'transitionsCss': transitionsCss[ isWebkit ? 0 : 1 ],
-				'transformsCss': transformsCss[ isWebkit ? 0 : 1 ],
-				'transformsJs': transformsJs[ isWebkit ? 0 : 1 ],
-				'transitionsJs': transitionsJs[ isWebkit ? 0 : 1 ],
-				'transitionsendJs': transitionsendJs[ isWebkit ? 0 : 1 ]
+				'prefixCss'        : prefixCss,
+				'prefixJs'         : prefixJs.toLowerCase(),
+				'transitionsCss'   : transitionsCss[ isWebkit ? 0 : 1 ],
+				'transformsCss'    : transformsCss[ isWebkit ? 0 : 1 ],
+				'transformsJs'     : transformsJs[ isWebkit ? 0 : 1 ],
+				'transitionsJs'    : transitionsJs[ isWebkit ? 0 : 1 ],
+				'transitionsendJs' : transitionsendJs[ isWebkit ? 0 : 1 ]
 			};
 		},
 
 		/**
 		 * @method: css3 animation 지원 여부
-		 * @return: {Boolean}
 		 */
 		hasCss3Animation: function(){
-			var Ddiv = document.createElement( 'div' );
-
-			return browser_Prefix.transitionsJs in Ddiv.style;
+			return browser_Prefix.transitionsJs in document.createElement( 'div' ).style;
 		},
 
 		/**
@@ -272,15 +257,13 @@ function SwipeBase( __setting ){
 		 * @method: css3 설정
 		 */
 		setCss3: function( _dom, _prop, _value ){
-			var this_style = _dom.style;
-
 			if ( _prop === 'transition' ){
-				this_style[ browser_Prefix.transitionsJs ] = _value;
+				_dom.style[ browser_Prefix.transitionsJs ] = _value;
 			} else if ( _prop === 'transform' ){
-				this_style[ browser_Prefix.transformsJs ] = _value;
+				_dom.style[ browser_Prefix.transformsJs ] = _value;
 			} else {
-				this_style[ _prop ] = _value;
-				this_style[ '-' + browser_Prefix.prefixJs + '-' + _prop ] =  _value;
+				_dom.style[ _prop ] = _value;
+				_dom.style[ '-' + browser_Prefix.prefixJs + '-' + _prop ] =  _value;
 			}
 		},
 
@@ -295,10 +278,8 @@ function SwipeBase( __setting ){
 
 			while( --evt_idx > -1 ){
 				while( --idx > -1 ){
-					evt = helper.trim( evt_arr[ evt_idx ]);
-
 					( function( __idx ){
-						_doms[ __idx ].addEventListener( evt, function( e ){
+						_doms[ __idx ].addEventListener( evt_arr[ evt_idx ], function( e ){
 							_callback( __idx );
 							e.preventDefault();
 						});
@@ -308,7 +289,7 @@ function SwipeBase( __setting ){
 		}
 	};
 
-	var touchEvents = { // 이벤트 함수
+	var touchEvents = { 
 		is_touch_start : false,
 		touch_start_x  : 0,
 		touch_start_y  : 0,
@@ -361,13 +342,12 @@ function SwipeBase( __setting ){
 				return false;
 			}
 
-			setAnimateBefore();
+			stopSlideShow();
 
 			if ( !touchEvents.is_touch_start && e.type === 'touchstart' && e.touches.length === 1 ){
 				touchEvents.is_touch_start = true;
 				touchEvents.touch_start_x  = e.touches[ 0 ].pageX;
 				touchEvents.touch_start_y  = e.touches[ 0 ].pageY;
-				// e.preventDefault();
 			}
 		},
 
@@ -378,6 +358,10 @@ function SwipeBase( __setting ){
 		setMove: function( e ){
 			var drag_dist = 0,
 				scroll_dist = 0;
+
+			if ( is_Move ){
+				return;
+			}
 
 			// 이미 start된 동작이 있어야만 작동
 			if ( touchEvents.is_touch_start && e.type === 'touchmove' && e.touches.length === 1 ){
@@ -403,21 +387,22 @@ function SwipeBase( __setting ){
 				is_to_next = touchEvents.move_dx < 0,
 				can_move = is_to_next ? touchEvents.canNextMove() : touchEvents.canPrevMove();
 
-			// $( '#console2' ).html( $( '#console2' ).html() + '<br>s2: ' + over_touch + ' | ' + can_move + ' | ' + is_Move + '<br>' );
+			if ( is_Move ){
+				return;
+			}
 
-			if ( e.type === 'touchend' && over_touch && can_move ){
+			if ( over_touch && can_move ){
 				is_to_next ? toNext() : toPrev();
 			} else {
+				helper.setCss3Transition( D_Plist, setting.duration, 0 );
+			
 				// 움직이없음에도 is_Move가 true로 설정되어 다운됨.
 				// 현재 보이는 위치가 0 그대로이면 is_Move를 해제
 				if ( helper.getCss3TransformPos( D_List[ now_Idx ] ) === 0 ){
 					is_Move = false;
 				}
-
-				helper.setCss3Transition( D_Plist, setting.duration, 0 );
 			}
 
-			// setTimeout( touchEvents.setInitVaiable, setting.duration );
 			touchEvents.setInitVaiable();
 		}
 	};
@@ -426,16 +411,14 @@ function SwipeBase( __setting ){
 	 * @method: 생성자
 	 */
 	function constructor(){
-		var tmp_dom = null,
-			idx = 0;
-
 		// 플러그인에서 배열로 넘겨줄때 패스
 		// javascrit로 바로 들어오면 dom2Array
 		setting = helper.extend( default_Option, __setting );
 		D_Plist = helper.isArray( setting.wrap ) ? setting.wrap : helper.dom2Array( setting.wrap ); 
 		D_List  = helper.isArray( setting.list ) ? setting.list : helper.dom2Array( setting.list ); 
 
-		if ( !D_List || !D_Plist ){ // 필수요소 체크
+		// 필수요소 체크
+		if ( !D_List || !D_Plist ){ 
 			return false;
 		}
 
@@ -446,19 +429,23 @@ function SwipeBase( __setting ){
 		browser_Prefix = helper.getCssPrefix();
 		setting.touchMinumRange = Math.max( 1, Math.min( 100, setting.touchMinumRange ));
 
-		if ( list_Len < 2 ){ // list이거나, 리스트가 1이하이면 함수 종료
+		// list이거나, 리스트가 1이하이면 함수 종료
+		if ( list_Len < 2 ){ 
 			return false;
 		}
 
-		if ( !( helper.hasCss3Animation() && 'addEventListener' in window )){
+		// 필수 요소 체크
+		if ( !( helper.hasCss3Animation() && 'addEventListener' in window && 'querySelector' in document )){
 			return false;
 		}
 
-		if ( setting.slideShowTime ){ // 슬라이드쇼 옵션 존재
+		// 슬라이드쇼 옵션 존재
+		if ( setting.slideShowTime ){ 
 			if ( typeof setting.slideShowTime === 'boolean' ){
 				is_Slide_Show = setting.slideShowTime;
 
-				if ( is_Slide_Show ){ // true일때, 숫자값 대입
+				// true일때, 숫자값 대입
+				if ( is_Slide_Show ){ 
 					setting.slideShowTime = default_Option.slideShowTime;
 				}
 			}
@@ -467,50 +454,62 @@ function SwipeBase( __setting ){
 				setting.slideShowTime = parseInt( setting.slideShowTime, 10 );
 			}
 
-			if ( isNaN( setting.slideShowTime )){ // 타입이 숫자가 아니면
+			// 타입이 숫자가 아니면
+			if ( isNaN( setting.slideShowTime )){ 
 				is_Slide_Show = false;
 			} else {
 				is_Slide_Show = true;
 
-				if ( setting.duration * 2 >= setting.slideShowTime ){ // 슬라이드쇼가 애니메이션 시간보다 짧을때
+				// 슬라이드쇼가 애니메이션 시간보다 짧을때
+				if ( setting.duration * 2 >= setting.slideShowTime ){ 
 					setting.slideShowTime = setting.duration * 2;
 				}
 			}
 		}
 
-		if ( setting.toStart ){ // 애니메이션 시작 버튼
+		// 애니메이션 시작 버튼
+		if ( setting.toStart ){ 
 			D_To_Start = helper.isArray( setting.toStart ) ? setting.toStart : helper.dom2Array( setting.toStart );
 			helper.setBtnEvent( D_To_Start, setting.startEvents, startSlideShow );
 		}
 
-		if ( setting.toStop ){ // 애니메이션 멈춤 버튼
+		// 애니메이션 멈춤 버튼
+		if ( setting.toStop ){ 
 			D_To_Stop  = helper.isArray( setting.toStop ) ? setting.toStop : helper.dom2Array( setting.toStop );
 			helper.setBtnEvent( D_To_Stop, setting.stopEvents, stopSlideShow );
 		}
 
-		if ( setting.toPrev ){ // 왼쪽 버튼
+		// 왼쪽 버튼
+		if ( setting.toPrev ){ 
 			D_To_Prev  = helper.isArray( setting.toPrev ) ? setting.toPrev : helper.dom2Array( setting.toPrev );
 			helper.setBtnEvent( D_To_Prev, setting.moveEvents, toPrev );
 		}
 
-		if ( setting.toNext ){ // 오른쪽 버튼
+		// 오른쪽 버튼
+		if ( setting.toNext ){ 
 			D_To_Next  = helper.isArray( setting.toNext ) ? setting.toNext : helper.dom2Array( setting.toNext );
 			helper.setBtnEvent( D_To_Next, setting.moveEvents, toNext );
 		}
 
-		if ( setting.pages ){ // 페이징 이동
+		// 페이징 이동
+		if ( setting.pages ){ 
 			D_To_Pages = helper.isArray( setting.pages ) ? setting.pages : helper.dom2Array( setting.pages );
 			helper.setBtnEvent( D_To_Pages, setting.moveEvents, function( _idx ){
 				toSlide( _idx );
 			});
 		}
 
-		if ( list_Len === 2 && setting.loop ){ // 루프이면서 리스트가 두개일때
-			tmp_dom = D_List[ 0 ].cloneNode( true ); // 처음 노드 복사
+		// 루프이면서 리스트가 두개일때
+		if ( list_Len === 2 && setting.loop ){ 
+			var tmp_dom = null;
+
+			// 처음 노드 복사
+			tmp_dom = D_List[ 0 ].cloneNode( true );
 			D_List.push( tmp_dom );
 			D_Plist.appendChild( tmp_dom );
 
-			tmp_dom = D_List[ 1 ].cloneNode( true ); // 두번째 노드 복사
+			// 두번째 노드 복사
+			tmp_dom = D_List[ 1 ].cloneNode( true ); 
 			D_List.push( tmp_dom );
 			D_Plist.appendChild( tmp_dom );
 
@@ -518,24 +517,19 @@ function SwipeBase( __setting ){
 			list_Len = 4;
 		}
 
-		idx = D_List.length;
-
 		D_Wrap.addEventListener( 'touchstart', touchEvents.setStart );
 		D_Wrap.addEventListener( 'touchmove', touchEvents.setMove );
 		D_Wrap.addEventListener( 'touchend', touchEvents.setEnd );
 		D_Wrap.addEventListener( 'touchcancel', touchEvents.setEnd );
-		D_Plist.addEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
+		D_Wrap.addEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
 
-		while( --idx > -1 ){ 
-			// 데이터 마크
-			D_List[ idx ].setAttribute( 'data-swipe-idx', idx );
-			
+		var idx = D_List.length;
+
+		while( --idx > -1 ){ 			
 			// 포커스시 애니메이션 on/off
 			D_List[ idx ].addEventListener( 'focus', stopSlideShow, false );
 			D_List[ idx ].addEventListener( 'blur', startSlideShow, false );
 		}
-
-		setInitStyle();
 
 		return true;
 	}
@@ -547,8 +541,6 @@ function SwipeBase( __setting ){
 		D_Wrap.style.overflow = 'hidden';
 
 		D_Plist.style.position = 'relative';
-		D_Plist.style.width    = '100%';
-		D_Plist.style.height   = '100%';
 		helper.setCss3( D_Plist, 'transform-style', 'preserve-3d' );
 		helper.setCss3Transition( D_Plist, 0, 0 );	
 
@@ -560,14 +552,12 @@ function SwipeBase( __setting ){
 			pos += space_Width;
 
 			D_List[ i ].style.position = 'absolute';
-			D_List[ i ].style.height   = '100%';
-
 			helper.setCss3Transition( D_List[ i ], 0, pos );
 		}
 
 		startSlideShow();
 
-		if ( typeof setting.create === 'function' ){ // 생성 후 콜백
+		if ( typeof setting.create === 'function' ){ 
 			setting.create( getNowIdx());
 		}
 	}
@@ -582,12 +572,9 @@ function SwipeBase( __setting ){
 		D_Wrap.removeEventListener( 'touchmove', touchEvents.setMove );
 		D_Wrap.removeEventListener( 'touchend', touchEvents.setEnd );
 		D_Wrap.removeEventListener( 'touchcancel', touchEvents.setEnd );
-		D_Plist.removeEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
+		D_Wrap.removeEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
 
 		while( --idx > -1 ){
-			// 데이터 마크
-			D_List[ idx ].removeAttribute( 'data-swipe-idx' );
-
 			// 포커스시 애니메이션 on/off
 			D_List[ idx ].removeEventListener( 'focus', stopSlideShow, false );
 			D_List[ idx ].removeEventListener( 'blur', startSlideShow, false );
@@ -696,17 +683,17 @@ function SwipeBase( __setting ){
 			is_direct_access = arguments.length === 1;
 
 		// 이동중이면 종료
-		// toSlide로 바로오는 경우도 있지만, 
-		// 터치로 오는 경우 충돌나기 때문에 터치로 오는 경우는 종료시키면 안됨.
-		if ( !touchEvents.is_touch_start && is_Move ){
+		if ( is_Move ){
 			return false;
 		}
 
-		if ( _to_idx === now_idx ){ // 현재 슬라이면 종료
+		// 현재 슬라이면 종료
+		if ( _to_idx === now_idx ){ 
 			return false;
 		}
 
-		if ( _to_idx < 0 || _to_idx > list_Len - 1 ){ // 범위 초과면 종료
+		// 범위 초과면 종료
+		if ( _to_idx < 0 || _to_idx > list_Len - 1 ){ 
 			return false;
 		}
 
@@ -725,33 +712,29 @@ function SwipeBase( __setting ){
 			_way = 'next';
 		}
 
-		// $( '#console1' ).html( $( '#console1' ).html() + '<br>---------------------<br>TO IDX' + _to_idx );
-
 		setToIdx( _to_idx );
-		toSlideAnimateBefore( setting.duration, _way );
+		toSlideAnimateBefore( _way );
 		toSlideAnimate( setting.duration, _way );
 	}
 
 	/**
 	 * @method: 슬라이더 애니메이션 이전
 	 */
-	function toSlideAnimateBefore( _time, _way ){
-		var now_idx  = getNowIdx(),
-			to_idx   = getToIdx(),
-			i        = list_Len;
+	function toSlideAnimateBefore( _way ){
+		var now_idx = getNowIdx(),
+			to_idx  = getToIdx(),
+			i       = list_Len;
 
 		setAnimateBefore();
 
-		while( --i > -1 ){ // 선택 화면만 보이기
+		// 선택 화면만 보이기
+		while( --i > -1 ){ 
 			D_List[ i ].style.visibility = ( i === now_idx || i === to_idx ) ? 'visible' : 'hidden';
 		}
 
+		// 위치 정해주기
 		helper.setCss3Transition( D_List[ now_idx ], 0, 0 + space_Width );
 		helper.setCss3Transition( D_List[ to_idx ], 0, ( _way === 'next' ? BASE_DISTANCE : -BASE_DISTANCE ) + space_Width );
-
-		// console.log('before', is_Move );
-		// $( '#console2' ).html( $( '#console2' ).html() + '<br>---------------------<br>B: ' + now_idx + ' | ' + to_idx );
-		// $( '#console3' ).html( $( '#console3' ).html() + '<br>---------------------<br>B: ' + helper.getCss3TransformPos( D_List[ to_idx ] ) );
 
 		if ( typeof setting.before === 'function' ){
 			setting.before( is_Loop_Len_2 ? now_idx % 2 : now_idx );
@@ -769,17 +752,18 @@ function SwipeBase( __setting ){
 		pos = _way === 'next' ? -BASE_DISTANCE : BASE_DISTANCE;
 		pos = _way === 'next' ? pos + ( space_Width * 2 ) : pos - ( space_Width * 2 );
 
-		if ( now_pos === 0 ){
+		if ( Math.abs( now_pos.toFixed( 2 ) ) == space_Width.toFixed( 2 ) ){
 			helper.setCss3Transition( D_Plist, _time, pos );	
 		} else {
 			// touch로 접근시, 사용자가 빠르게 터치해서 이미 끝으로 도달 했을 시
 			if ( now_pos % BASE_DISTANCE === 0 ){ 
-				_time = space_Width < 1 ? 0 : _time / space_Width;
-				helper.setCss3Transition( D_Plist, _time, pos );
+				toSlideAnimateAfter({
+					target: D_List[ now_idx ]
+				});
 			} else {
 				// swipe 탄력적으로
 				// 거리:전체거리 = 남은거리(x):전체시간 -> 거리 * 전체시간 / 전체거리
-				_time = _time * ( BASE_DISTANCE - Math.abs( now_pos )) / BASE_DISTANCE;
+				// _time = _time * ( BASE_DISTANCE - Math.abs( now_pos )) / BASE_DISTANCE;
 				helper.setCss3Transition( D_Plist, _time, pos );
 			}	
 		}
@@ -793,8 +777,7 @@ function SwipeBase( __setting ){
 			to_idx   = getToIdx(),
 			prev_idx = 0,
 			next_idx = 0,
-			side_idx = 0,
-			i        = list_Len;
+			side_idx = 0;
 
 		// 이동 완료후 위치 셋팅
 		setNowIdx( to_idx );
@@ -820,21 +803,18 @@ function SwipeBase( __setting ){
 
 		now_idx = getNowIdx();
 
-		while( --i > -1 ){ // 선택 화면만 보이기
+		var i = list_Len;
+
+		// 선택 화면만 보이기
+		while( --i > -1 ){ 
 			D_List[ i ].style.visibility = ( i === now_idx || i === prev_idx || i === next_idx ) ? 'visible' : 'hidden';
 		}
 
-		// console.log('after', is_Move);
-		// console.log('--------------');
-
 		setAnimateAfter();
-
-		$( '#console3' ).html( $( '#console3' ).html() + '<br>s3: ' + ' | <br>' );
 
 		if ( typeof setting.active === 'function' ){
 			setting.active( is_Loop_Len_2 ? now_idx % 2 : now_idx );
 		}
-		// $( '#console4' ).html( $( '#console4' ).html() + '<br>---------------------<br>A: ' + getPrevIdx() + ' | ' + now_idx + ' | ' + getNextIdx() );
 	}
 
 	/**
@@ -854,15 +834,17 @@ function SwipeBase( __setting ){
 	}
 
 	if ( constructor()){
+		setInitStyle();
+		
 		return {
-			startSlideShow: startSlideShow,
-			stopSlideShow: stopSlideShow,
-			refreshSize: refreshSize,
-			getIdx: getNowIdx,
-			toNext: toNext,
-			toPrev: toPrev,
-			toSlide: toSlide,
-			destory: destory
+			startSlideShow : startSlideShow,
+			stopSlideShow  : stopSlideShow,
+			refreshSize    : refreshSize,
+			getIdx         : getNowIdx,
+			toNext         : toNext,
+			toPrev         : toPrev,
+			toSlide        : toSlide,
+			destory        : destory
 		};
 	}
 }

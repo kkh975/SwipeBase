@@ -78,12 +78,12 @@ footer.wrap-footer address a {
 	margin: 0px auto;
 	margin-top: 5px;
 	width: 100%; /* required */
-	height: 100px; /* required */
+	height: 1200px; /* required */
 }
 .ex .list li {
-	padding:0%;
-	width: 100%; /* required */
-	height: 100px; /* required */
+	padding:0 2%;
+	width: 80%; /* required */
+	height: 1200px; /* required */
 }
 .ex .list li > div {
 	width: 100%;
