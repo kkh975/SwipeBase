@@ -7,109 +7,29 @@
 	<meta http-equiv="Cashe-Control" content="no-cache">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
-	<link rel="stylesheet" href="css/style2.css">
+	<link rel="stylesheet" href="css/style.css">
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="js/SwipeBase2.js"></script>
+	<script type="text/javascript" src="js/SwipeBase.js"></script>
 </head>
 <body>
-	<!-- <header class="wrap-header">
+	<header class="wrap-header">
 		<h1>SwipeBase</h1>
 		<p><a href="https://github.com/kkh975/SwipeBase">Documents in Github</a></p>
 		<p><a href="list-contents.html">list contents</a></p>
-	</header> -->
+	</header>
 
 	<main>
 		<!-- example -->
 		<div class="ex wrap">
-			<!-- <header>
+			<header>
 				<h1>Example</h1>
-			</header> -->
+			</header>
 
 			<!-- Default -->
 			<section class="section-1">
 				<header>
-					<!-- <h1>기본</h1> -->
+					<h1>기본</h1>
 					<h2>상황: <span class="ststus-display">0</span></h2>
-				</header>
-
-				<div class="btns">
-					<button type="button" class="to-start">start</button>
-					<button type="button" class="to-stop">stop</button>
-					<button type="button" class="to-prev">prev</button>
-					<button type="button" class="to-next">next</button>
-
-					<div class="pages">
-						<button type="button">0</button>
-						<button type="button">1</button>
-						<button type="button">2</button>
-						<button type="button">3</button>
-						<!-- <button type="button">4</button> -->
-						<!-- <button type="button">5</button> -->
-					</div>
-				</div>
-
-				<div class="listWrap">
-					<ul class="list">
-						<li>
-							<div style="background: red;">
-								<a href="" target="">0</a>
-							</div>
-						</li>
-						<li>
-							<div style="background: brown;">
-								<a href="" target="">1</a>
-							</div>
-						</li>
-						<li>
-							<div style="background: orange;">
-								<a href="" target="">2</a>
-							</div>
-						</li>
-						<!-- <li>
-							<div style="background: blue;">
-								<a href="" target="">3</a>
-							</div>
-						</li>
-						<li>
-							<div style="background: black;">
-								<a href="" target="">4</a>
-							</div>
-						</li> -->
-					</ul>
-				</div>
-
-				<script type="text/javascript">
-					$( '.section-1 .listWrap' ).swipeBase({
-						// duration: 10000,
-						// slideShowTime: false,
-						$pages: $( '.section-1 .pages button' ),
-						$toStart: $( '.section-1 .to-start' ),
-						$toStop: $( '.section-1 .to-stop' ),
-						$toPrev: $( '.section-1 .to-prev' ),
-						$toNext: $( '.section-1 .to-next' ),
-						create: function(){
-							$( '.section-1 span.ststus-display' ).text( 'create' );
-						},
-						before: function( idx ){
-							$( '.section-1 span.ststus-display' ).text( 'before: ' + idx );
-						},
-						active: function( idx ){
-							$( '.section-1 span.ststus-display' ).text( 'after: ' + idx );
-						}
-					});
-				</script>
-
-				<div id="console1" style="text-align:center; width:33%; float:left; height:300px; overflow-y:scroll"></div>
-				<div id="console2" style="text-align:center; width:33%; float:left; height:300px; overflow-y:scroll"></div>
-				<div id="console3" style="text-align:center; width:33%; float:left; height:300px; overflow-y:scroll"></div>
-				<!-- <div id="console4" style="text-align:center; width:25%; float:left; height:300px; overflow-y:scroll"></div> -->
-			</section>
-
-			<!-- None loop -->
-			<!-- <section class="section-2">
-				<header>
-					<h1>루프가 아닐떄</h1>
-					<h2>status: <span class="ststus-display">0</span></h2>
 				</header>
 
 				<div class="listWrap">
@@ -148,6 +68,69 @@
 					</div>
 				</div>
 
+				<script type="text/javascript">
+					$( '.section-1 .listWrap' ).swipeBase({
+						$pages: $( '.section-1 .pages button' ),
+						$toStart: $( '.section-1 .to-start' ),
+						$toStop: $( '.section-1 .to-stop' ),
+						$toPrev: $( '.section-1 .to-prev' ),
+						$toNext: $( '.section-1 .to-next' ),
+						create: function(){
+							$( '.section-1 span.ststus-display' ).text( 'create' );
+						},
+						before: function( idx ){
+							$( '.section-1 span.ststus-display' ).text( 'before: ' + idx );
+						},
+						active: function( idx ){
+							$( '.section-1 span.ststus-display' ).text( 'after: ' + idx );
+						}
+					});
+				</script>
+			</section>
+
+			<!-- None loop -->
+			<section class="section-2">
+				<header>
+					<h1>루프가 아닐떄</h1>
+					<h2>status: <span class="ststus-display">0</span></h2>
+				</header>
+			
+				<div class="listWrap">
+					<ul class="list">
+						<li>
+							<div style="background: red;">
+								<a href="" target="">0</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: brown;">
+								<a href="" target="">1</a>
+							</div>
+						</li>
+						<li>
+							<div style="background: orange;">
+								<a href="" target="">2</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			
+				<div class="btns">
+					<button type="button" class="to-start">start</button>
+					<button type="button" class="to-stop">stop</button>
+					<button type="button" class="to-prev">prev</button>
+					<button type="button" class="to-next">next</button>
+			
+					<div class="pages">
+						<button type="button">0</button>
+						<button type="button">1</button>
+						<button type="button">2</button>
+						<button type="button">3</button>
+						<button type="button">4</button>
+						<button type="button">5</button>
+					</div>
+				</div>
+			
 				<script type="text/javascript">
 					$( '.section-2 .listWrap' ).swipeBase({
 						$pages: $( '.section-2 .pages button' ),
@@ -167,15 +150,15 @@
 						}
 					});
 				</script>
-			</section> -->
+			</section>
 
 			<!-- Length 2 -->
-			<!-- <section class="section-3">
+			<section class="section-3">
 				<header>
 					<h1>슬라이드가 두개일때</h1>
 					<h2>상황: <span class="ststus-display">0</span></h2>
 				</header>
-
+			
 				<div class="listWrap">
 					<ul class="list">
 						<li>
@@ -190,13 +173,13 @@
 						</li>
 					</ul>
 				</div>
-
+			
 				<div class="btns">
 					<button type="button" class="to-start">start</button>
 					<button type="button" class="to-stop">stop</button>
 					<button type="button" class="to-prev">prev</button>
 					<button type="button" class="to-next">next</button>
-
+			
 					<div class="pages">
 						<button type="button">0</button>
 						<button type="button">1</button>
@@ -206,7 +189,7 @@
 						<button type="button">5</button>
 					</div>
 				</div>
-
+			
 				<script type="text/javascript">
 					$( '.section-3 .listWrap' ).swipeBase({
 						$pages: $( '.section-3 .pages button' ),
@@ -225,15 +208,15 @@
 						}
 					});
 				</script>
-			</section> -->
+			</section>
 
 			<!-- Length 2 && None loop -->
-			<!-- <section class="section-4">
+			<section class="section-4">
 				<header>
 					<h1>슬라이드가 2개이면서 루프가 아닐떄</h1>
 					<h2>status: <span class="ststus-display">0</span></h2>
 				</header>
-
+			
 				<div class="listWrap">
 					<ul class="list">
 						<li>
@@ -248,13 +231,13 @@
 						</li>
 					</ul>
 				</div>
-
+			
 				<div class="btns">
 					<button type="button" class="to-start">start</button>
 					<button type="button" class="to-stop">stop</button>
 					<button type="button" class="to-prev">prev</button>
 					<button type="button" class="to-next">next</button>
-
+			
 					<div class="pages">
 						<button type="button">0</button>
 						<button type="button">1</button>
@@ -264,7 +247,7 @@
 						<button type="button">5</button>
 					</div>
 				</div>
-
+			
 				<script type="text/javascript">
 					$( '.section-4 .listWrap' ).swipeBase({
 						$pages: $( '.section-4 .pages button' ),
@@ -284,15 +267,15 @@
 						}
 					});
 				</script>
-			</section> -->
+			</section>
 
 			<!-- Javascript -->
-			<!-- <section class="section-5">
+			<section class="section-5">
 				<header>
 					<h1>자바스크립트</h1>
 					<h2>상황: <span class="ststus-display">0</span></h2>
 				</header>
-
+			
 				<div class="listWrap">
 					<ul class="list">
 						<li>
@@ -312,13 +295,13 @@
 						</li>
 					</ul>
 				</div>
-
+			
 				<div class="btns">
 					<button type="button" class="to-start">start</button>
 					<button type="button" class="to-stop">stop</button>
 					<button type="button" class="to-prev">prev</button>
 					<button type="button" class="to-next">next</button>
-
+			
 					<div class="pages">
 						<button type="button">0</button>
 						<button type="button">1</button>
@@ -328,7 +311,7 @@
 						<button type="button">5</button>
 					</div>
 				</div>
-
+			
 				<script type="text/javascript">
 					var Dsec5 = document.querySelectorAll( '.section-5' )[ 0 ];
 					var Ddisp = Dsec5.querySelectorAll( 'span.ststus-display' )[ 0 ];
@@ -352,14 +335,14 @@
 						}
 					});
 				</script>
-			</section> -->
+			</section>
 		</div>
 		<!-- example // -->
 	</main>
 
-	<!-- <footer class="wrap-footer">
+	<footer class="wrap-footer">
 		<address>copyright <a href="http://blim.mit-license.org/" target="_blank">http://blim.mit-license.org/</a></address>
 		<p><a href="http://www.blim.co.kr">http://www.blim.co.kr</a></p>
-	</footer> -->
+	</footer>
 </body>
 </html>
