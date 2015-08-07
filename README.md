@@ -55,6 +55,8 @@ new SwipeBase({
 + swipeBase2next: 다음 슬라이더 이동
 + swipeBase2slide: {index} 현재 슬라이더 인덱스
 + swipeBase2destory: 제거
++ swipeBase2touchEnable: 터치 잠금 해제
++ swipeBase2touchDisable: 터치 잠금
 
 ###javascript method
 + startSlideShow: 슬라이더쇼 시작
@@ -65,6 +67,8 @@ new SwipeBase({
 + toPrev: 이전 슬라이더 이동
 + toSlide: {index} 지정된 슬라이더 이동
 + destory: 제거
++ touchEnable: {Boolean} 터치 잠금 해제
++ touchDisable: {Boolean or String} 터치 잠금, 'next', 'right'의 경우는 오른쪽 터치만 잠금, 'prev', 'left'의 경우는 왼쪽 터치만 잠금, 기본은 양쪽 모두 잠금.
 
 ##option
 
@@ -87,12 +91,14 @@ new SwipeBase({
 + toNext: {elements} (default: null) 다음 이동 버튼
 
 ####common option
++ startIdx: {Integer} (default: 0) 시작 리스트
 + startEvents: {String} (default: 'click') toStart element 이벤트
 + stopEvents: {String} (default: 'click') toStop element 이벤트
 + moveEvents: {String} (default: 'click') toPrev and toNext element 이벤트
 + pageEvents: {String} (default: 'click') pages element 이벤트
 + touchMinumRange: {Integer} (default: 10) 사용자 터치시, 슬라이더로 넘어갈 기준값(백분율)
 + duration: {Integer} (default: 400) 애니메이션 시간
++ sideTouchLock: {Boolean} (default: false) 루프가 아닐때 양쪽 끝의 터치 여부
 + loop: {Boolean} (default: true) 루프 여부. false로 설정시 마지막 슬라이드에서 정지
 + slideShowTime: {Boolean or Integer} (default: 3000) 슬라이더쇼 시간
 + create: {Function} (default: null) 생성시 콜백 함수
@@ -103,6 +109,11 @@ new SwipeBase({
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
 
 ##History
++ 2015-08-07: 
+	- Android 그래픽 카드 오류 수정
+	- 슬라이드 애니메이션, 터치 이벤트 충돌 수정
+	- enable/disable 함수 추가
+	- sideTouchLock 기능 추가
 + 2015-06-02: 세로 스크롤 시 오류 수정.
 + 2015-06-15: 리스트 항상 가운데 표출(좌우표출).
 + 2015-06-21: 아이폰 세로 스크롤 시 버그 대응, 중복 애니메이션 방지.
