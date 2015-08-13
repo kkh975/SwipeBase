@@ -27,7 +27,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.startSlideShow !== 'undefined' ){
 				inst.startSlideShow();
 			}
 		});
@@ -37,7 +37,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 			
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.stopSlideShow !== 'undefined' ){
 				inst.stopSlideShow();
 			}
 		});
@@ -47,7 +47,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.refreshSize !== 'undefined' ){
 				inst.refreshSize();
 			}
 		});
@@ -57,7 +57,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.setHeight !== 'undefined' ){
 				inst.setHeight( _hei );
 			}
 		});
@@ -67,7 +67,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.toPrev !== 'undefined' ){
 				inst.toPrev();
 			}
 		});
@@ -77,7 +77,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.toNext !== 'undefined' ){
 				inst.toNext();
 			}
 		});
@@ -87,7 +87,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.toSlide !== 'undefined' ){
 				inst.toSlide( _idx );
 			}
 		});
@@ -97,7 +97,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.destory !== 'undefined' ){
 				inst.destory();
 			}
 		});
@@ -107,7 +107,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.touchEnable !== 'undefined' ){
 				inst.touchEnable();
 			}
 		});
@@ -117,7 +117,7 @@
 		return this.each( function(){
 			var inst = $( this ).data( 'SwipeBase' );
 
-			if ( inst ){
+			if ( typeof inst !== 'undefined' && typeof inst.touchDisable !== 'undefined' ){
 				inst.touchDisable( _direct || true );
 			}
 		});
@@ -338,27 +338,29 @@ function SwipeBase( __setting ){
 	};
 
 	var touchEvents = { 
-		is_drag        : false,
-		is_ratio       : false,
-		is_touch_start : false,
+		// is_ratio       : false,
+		// is_touch_start : false,
+		is_drag        : null,
 		touch_start_x  : 0,
 		touch_start_y  : 0,
 		touch_move_x1  : 0,
 		touch_move_y1  : 0,
 		move_dx        : 0,
+		// drag_dist      : 0,
 
 		/**
 		 * @method: 변수 초기화
 		 */
 		setInitVaiable: function(){
-			touchEvents.is_drag        = false;
-			touchEvents.is_ratio       = false;
-			touchEvents.is_touch_start = false;
+			// touchEvents.is_ratio       = false;
+			// touchEvents.is_touch_start = false;
+			touchEvents.is_drag        = null;
 			touchEvents.touch_start_x  = 0;
 			touchEvents.touch_start_y  = 0;
 			touchEvents.touch_move_x1  = 0;
 			touchEvents.touch_move_y1  = 0;
 			touchEvents.move_dx        = 0;
+			// touchEvents.drag_dist      = 0;
 		},
 
 		/**
@@ -396,12 +398,15 @@ function SwipeBase( __setting ){
 			// 터치잠금이 아닐시, 슬라이드 애니메이션 움직임이 아닐시, 터치 이벤트시
 			if ( touch_Disable !== true && !is_Move && e.type === 'touchstart' && e.touches.length === 1 ){
 				stopSlideShow();
-				touchEvents.is_touch_start = true;
-				touchEvents.touch_start_x  = e.touches[ 0 ].pageX;
-				touchEvents.touch_start_y  = e.touches[ 0 ].pageY;
-				touchEvents.touch_move_x1  = 0;
-				touchEvents.touch_move_y1  = 0;
+				touchEvents.is_drag       = null;
+				touchEvents.touch_start_x = e.touches[ 0 ].pageX;
+				touchEvents.touch_start_y = e.touches[ 0 ].pageY;
 			}
+
+			// 터치 이벤트
+			D_Wrap.addEventListener( 'touchmove', touchEvents.setMove );
+			D_Wrap.addEventListener( 'touchend', touchEvents.setEnd );
+			D_Wrap.addEventListener( 'touchcancel', touchEvents.setEnd );
 		},
 
 		/**
@@ -418,7 +423,7 @@ function SwipeBase( __setting ){
 				var is_disable  = false;
 
 				// 이미 start된 동작이 있어야만 작동
-				if ( touchEvents.is_touch_start && e.type === 'touchmove' && e.touches.length === 1 ){
+				if ( e.type === 'touchmove' && e.touches.length === 1 ){
 					touchEvents.touch_move_x1 = e.touches[ 0 ].pageX;
 					touchEvents.touch_move_y1 = e.touches[ 0 ].pageY;
 
@@ -428,10 +433,8 @@ function SwipeBase( __setting ){
 						touchEvents.touch_move_y1 = e.touches[ 0 ].pageY;
 					}*/
 
-					// 가로 이동 거리
-					drag_dist = touchEvents.touch_move_x1 - touchEvents.touch_start_x;	
-					
-					// 세로 이동 거리
+					// 가로/세로 이동 거리
+					drag_dist   = touchEvents.touch_move_x1 - touchEvents.touch_start_x;
 					scroll_dist = touchEvents.touch_move_y1 - touchEvents.touch_start_y;	
 
 					// 빗변 이동 거리
@@ -444,7 +447,7 @@ function SwipeBase( __setting ){
 					touchEvents.move_dx = ( drag_dist / list_Width ) * 100;		
 					touchEvents.move_dx = Math.max( -100, Math.min( 100, touchEvents.move_dx ));	
 
-					is_to_next = touchEvents.move_dx < 0;
+					is_to_next = drag_dist < 0;
 					is_disable = ( (is_to_next && (touch_Disable === 'next' || touch_Disable === 'right')) || 
 								  (!is_to_next && (touch_Disable === 'prev' || touch_Disable === 'left' )) );
 
@@ -464,12 +467,16 @@ function SwipeBase( __setting ){
 						touchEvents.is_drag = false;
 					}*/
 
-					if ( Math.abs(drag_dist) > Math.abs(scroll_dist) && !is_disable ){
+					// 일종의 재귀함수. 한번 move로 인식되면 
+					// 다음 움직임에는 분기처리가 안되기 때문에 한번만 인식됨
+					if ( touchEvents.is_drag == null ){
+						touchEvents.is_drag = touchEvents.is_drag || Math.abs( drag_dist ) > Math.abs( scroll_dist );	
+					}
+
+					if ( touchEvents.is_drag && !is_disable ){
+						e.preventDefault();
 						touchEvents.is_drag = true;
 						helper.setCss3Transition( D_Plist, 0, (setting.loop ? 0 : list_Pos) + touchEvents.move_dx );
-						e.preventDefault();
-					} else {
-						touchEvents.is_drag = false;
 					}
 				}
 			}
@@ -493,6 +500,11 @@ function SwipeBase( __setting ){
 					helper.setCss3Transition( D_Plist, setting.duration, setting.loop ? 0 : list_Pos);
 				}
 			}
+
+			// 터치 이벤트
+			D_Wrap.removeEventListener( 'touchmove', touchEvents.setMove );
+			D_Wrap.removeEventListener( 'touchend', touchEvents.setEnd );
+			D_Wrap.removeEventListener( 'touchcancel', touchEvents.setEnd );
 
 			touchEvents.setInitVaiable();
 		}
@@ -613,11 +625,9 @@ function SwipeBase( __setting ){
 		setting.startIdx = Math.min( setting.startIdx, D_List.length );
 		setNowIdx( setting.startIdx );
 
-		// 터치 이벤트
+		// 이벤트
+		window.addEventListener( 'resize', refreshSize );
 		D_Wrap.addEventListener( 'touchstart', touchEvents.setStart );
-		D_Wrap.addEventListener( 'touchmove', touchEvents.setMove );
-		D_Wrap.addEventListener( 'touchend', touchEvents.setEnd );
-		D_Wrap.addEventListener( 'touchcancel', touchEvents.setEnd );
 
 		var idx = D_List.length;
 
@@ -678,11 +688,8 @@ function SwipeBase( __setting ){
 	function destory(){
 		var idx = D_List.length;
 
+		window.removeEventListener( 'resize', refreshSize );
 		D_Wrap.removeEventListener( 'touchstart', touchEvents.setStart );
-		D_Wrap.removeEventListener( 'touchmove', touchEvents.setMove );
-		D_Wrap.removeEventListener( 'touchend', touchEvents.setEnd );
-		D_Wrap.removeEventListener( 'touchcancel', touchEvents.setEnd );
-		D_Wrap.removeEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
 
 		while( --idx > -1 ){
 			// 포커스시 애니메이션 on/off
@@ -897,6 +904,15 @@ function SwipeBase( __setting ){
 			}
 
 			helper.setCss3Transition( D_Plist, _time, pos );
+
+			// 체크하기
+			// 움직였는데도 아직도 is_Move로 잠겨있으면 재시도 하기
+			setTimeout( function(){
+				if ( helper.getCss3TransformPos( D_List[ to_idx ] ) == space_Width && is_Move ){
+					D_Wrap.removeEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
+					setAnimateAfter();
+				}
+			}, _time + 100 );
 		}
 	}
 
@@ -932,7 +948,7 @@ function SwipeBase( __setting ){
 
 		// 실제 적용시 클릭 이벤트와 충돌남
 		D_Wrap.removeEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
-		setAnimateAfter();		
+		setAnimateAfter();
 
 		if ( typeof setting.active === 'function' ){
 			setting.active( is_Loop_Len_2 ? now_idx % 2 : now_idx );
