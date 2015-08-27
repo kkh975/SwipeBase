@@ -109,7 +109,7 @@ new SwipeBase({
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
 
 ##History
-+ 2015-08-13: 대각선 드래그 시 드래그 방지.
++ 2015-08-27: 오류 수정
 + 2015-08-07: 
 	- Android 그래픽 카드 오류 수정
 	- 슬라이드 애니메이션, 터치 이벤트 충돌 수정

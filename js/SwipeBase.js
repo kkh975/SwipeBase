@@ -341,6 +341,7 @@ function SwipeBase( __setting ){
 		// is_ratio       : false,
 		// is_touch_start : false,
 		is_drag        : null,
+		is_disable     : false,
 		touch_start_x  : 0,
 		touch_start_y  : 0,
 		touch_move_x1  : 0,
@@ -355,6 +356,7 @@ function SwipeBase( __setting ){
 			// touchEvents.is_ratio       = false;
 			// touchEvents.is_touch_start = false;
 			touchEvents.is_drag        = null;
+			touchEvents.is_disable     = false;
 			touchEvents.touch_start_x  = 0;
 			touchEvents.touch_start_y  = 0;
 			touchEvents.touch_move_x1  = 0;
@@ -420,7 +422,6 @@ function SwipeBase( __setting ){
 				var scroll_dist = 0;
 				var side_dist   = 0;
 				var is_to_next  = false;
-				var is_disable  = false;
 
 				// 이미 start된 동작이 있어야만 작동
 				if ( e.type === 'touchmove' && e.touches.length === 1 ){
@@ -435,7 +436,8 @@ function SwipeBase( __setting ){
 
 					// 가로/세로 이동 거리
 					drag_dist   = touchEvents.touch_move_x1 - touchEvents.touch_start_x;
-					scroll_dist = touchEvents.touch_move_y1 - touchEvents.touch_start_y;	
+					scroll_dist = touchEvents.touch_move_y1 - touchEvents.touch_start_y;
+					is_to_next  = drag_dist < 0;
 
 					// 빗변 이동 거리
 					// side_dist = Math.sqrt( Math.pow( drag_dist, 2 ) + Math.pow( scroll_dist, 2 ) );
@@ -444,22 +446,21 @@ function SwipeBase( __setting ){
 					// touchEvents.is_ratio = Math.sin(setting.scrollMinumRange * (Math.PI / 180)) > (Math.abs(scroll_dist)/side_dist);
 					
 					// 가로 이동 백분률
-					touchEvents.move_dx = ( drag_dist / list_Width ) * 100;		
-					touchEvents.move_dx = Math.max( -100, Math.min( 100, touchEvents.move_dx ));	
-
-					is_to_next = drag_dist < 0;
-					is_disable = ( (is_to_next && (touch_Disable === 'next' || touch_Disable === 'right')) || 
-								  (!is_to_next && (touch_Disable === 'prev' || touch_Disable === 'left' )) );
+					touchEvents.move_dx    = ( drag_dist / list_Width ) * 100;		
+					touchEvents.move_dx    = Math.max( -100, Math.min( 100, touchEvents.move_dx ));	
+					touchEvents.is_disable = 
+							( (is_to_next && (touch_Disable === 'next' || touch_Disable === 'right')) || 
+							  (!is_to_next && (touch_Disable === 'prev' || touch_Disable === 'left' )) );
 
 					// 무한이 아니면서 양쪽 끝 터치가 잠겨있을 때,
 					// 처음 노드에서는 왼쪽잠금
 					// 마지막 노드에서는 오른쪽 잠금 
 					if ( !setting.loop && setting.sideTouchLock && ( ( !is_to_next && now_idx === 0 ) || ( is_to_next && now_idx === list_Len - 1 ) ) ){
-						is_disable = true;
+						touchEvents.is_disable = true;
 					}
 					
 					// 최초 각도에 따라 스크롤 여부
-					/*if ( touchEvents.is_ratio && !is_disable ){
+					/*if ( touchEvents.is_ratio && !touchEvents.is_disable ){
 						touchEvents.is_drag = true;
 						helper.setCss3Transition( D_Plist, 0, (setting.loop ? 0 : list_Pos) + touchEvents.move_dx );
 						e.preventDefault();
@@ -473,7 +474,7 @@ function SwipeBase( __setting ){
 						touchEvents.is_drag = touchEvents.is_drag || Math.abs( drag_dist ) > Math.abs( scroll_dist );	
 					}
 
-					if ( touchEvents.is_drag && !is_disable ){
+					if ( touchEvents.is_drag && !touchEvents.is_disable ){
 						e.preventDefault();
 						touchEvents.is_drag = true;
 						helper.setCss3Transition( D_Plist, 0, (setting.loop ? 0 : list_Pos) + touchEvents.move_dx );
@@ -488,7 +489,7 @@ function SwipeBase( __setting ){
 		 */
 		setEnd: function( e ){
 			// 움직임이나 disable 상황이 아니면 무조건 처리함
-			if ( touch_Disable !== true && !is_Move ){
+			if ( !touchEvents.is_disable && !is_Move ){
 				var over_touch = Math.abs( touchEvents.move_dx ) > setting.touchMinumRange;
 				var is_to_next = touchEvents.move_dx < 0;
 				var can_move   = is_to_next ? touchEvents.canNextMove() : touchEvents.canPrevMove();
@@ -867,7 +868,7 @@ function SwipeBase( __setting ){
 			helper.setCss3Transition( D_List[ to_idx ], 0, ( _way === 'next' ? BASE_DISTANCE : -BASE_DISTANCE ) + space_Width );
 		// }
 
-		if ( typeof setting.before === 'function' ){
+		if ( typeof setting.before === 'function'  ){
 			setting.before( is_Loop_Len_2 ? now_idx % 2 : now_idx );
 		}
 	}
@@ -908,9 +909,8 @@ function SwipeBase( __setting ){
 			// 체크하기
 			// 움직였는데도 아직도 is_Move로 잠겨있으면 재시도 하기
 			setTimeout( function(){
-				if ( helper.getCss3TransformPos( D_List[ to_idx ] ) == space_Width && is_Move ){
-					D_Wrap.removeEventListener( browser_Prefix.transitionsendJs, toSlideAnimateAfter, false );
-					setAnimateAfter();
+				if ( helper.getCss3TransformPos( D_List[ now_idx ] ) == space_Width && is_Move ){
+					toSlideAnimateAfter();
 				}
 			}, _time + 100 );
 		}
@@ -919,7 +919,7 @@ function SwipeBase( __setting ){
 	/**
 	 * @method: 슬라이더 애니메이션 이후
 	 */
-	function toSlideAnimateAfter( e ){
+	function toSlideAnimateAfter(){
 		var now_idx  = getNowIdx();
 		var prev_idx = getPrevIdx();
 		var next_idx = getNextIdx();
