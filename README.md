@@ -51,6 +51,8 @@ new SwipeBase({
 ###jquery method
 + **swipeBase2start**: 슬라이더쇼 시작
 + **swipeBase2stop**: 슬라이더쇼 정지
++ **swipeBase2refresh**: 가로 크기 재반영
++ **swipeBase2setHeight**: 높이 재반영
 + **swipeBase2prev**: 이전 슬라이더 이동
 + **swipeBase2next**: 다음 슬라이더 이동
 + **swipeBase2slide**: {index} 현재 슬라이더 인덱스
@@ -61,7 +63,8 @@ new SwipeBase({
 ###javascript method
 + **startSlideShow**: 슬라이더쇼 시작
 + **stopSlideShow**: 슬라이더쇼 정지
-+ **refreshSize**: 크기 재반영
++ **refreshSize**: 가로 크기 재반영
++ **setHeight**: 높이값 설정
 + **getIdx**: 현재 슬라이더 인덱스
 + **toNext**: 다음 슬라이더 이동
 + **toPrev**: 이전 슬라이더 이동

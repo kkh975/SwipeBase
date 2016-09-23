@@ -689,14 +689,14 @@ function SwipeBase( __setting ){
 	 * @method: 화면 리사이즈
 	 */
 	function refreshSize(){
-		list_Width  = D_Wrap.offsetWidth;
+		list_Width = _width || D_Wrap.offsetWidth;
 	}
 
 	/**
 	 * @method: 높이값 설정
 	 */
-	function setHeight( _hei ){
-		D_Plist.style.height = _hei || D_List[ getNowIdx() ].offsetHeight;
+	function setHeight( _height ){
+		D_Plist.style.height = _height || D_List[ getNowIdx() ].offsetHeight;
 	}
 
 	/**
