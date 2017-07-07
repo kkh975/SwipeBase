@@ -2,6 +2,7 @@
  * @autor: Blim - Koo Chi Hoon(kkh975@naver.com)
  * @license http://blim.mit-license.org/
  */
+if ( window.jQuery ) {
 ( function( $ ){
 	'use strict';
 
@@ -124,6 +125,7 @@
 		});
 	};
 }( jQuery ));
+}
 
 /*!*
  * @method: SwipeBase 함수
@@ -956,3 +958,6 @@ function SwipeBase( __setting ){
 		};
 	}
 }
+
+
+module.exports = SwipeBase;
