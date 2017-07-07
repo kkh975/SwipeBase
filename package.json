@@ -1,0 +1,26 @@
+{
+  "name": "swipebase",
+  "version": "1.0.0",
+  "description": "Use for Mobile Swipe UI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kkh975/SwipeBase.git"
+  },
+  "keywords": [
+    "swipe",
+    "mobile",
+    "ui"
+  ],
+  "author": "blim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kkh975/SwipeBase/issues"
+  },
+  "homepage": "https://github.com/kkh975/SwipeBase#readme",
+  "dependencies": {
+  }
+}
