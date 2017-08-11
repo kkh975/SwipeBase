@@ -1,30 +1,30 @@
 SwipeBase
 =========
 
-##Introduce
+## Introduce
 모바일 사이트에서 많이 사용되어지는 플리킹 플러그인입니다. jQuery plugin을 지원하며 슬라이더의 무한 루프와 페이징 기능등이 있습니다.
 
 [Demo](https://kkh975.github.io/SwipeBase)
 
-##install
+## install
 
-###npm
+### npm
 ```sh
 npm install SwipeBase --save
 ```
 
-###bower
+### bower
 ```sh
 bower install SwipeBase --save
 ```
 
-###html
+### html
 ```html
 <script src="bower_components/SwipeBase/dist/SwipeBase.js"></script>
 ```
 
-##How to Use
-####html
+## How to Use
+#### html
 아래와 같이 감싸는 태그와 리스트 태그, 그리고 리스트의 아이템 태그로 작성합니다.
 ```html
 <div class="listWrap">
@@ -36,7 +36,7 @@ bower install SwipeBase --save
 </div>
 ```
 
-####css
+#### css
 아래와 같이 길이와 높이값을 반드시 기입해야 합니다.
 ```css
 .listWrap {
@@ -49,7 +49,7 @@ bower install SwipeBase --save
 }
 ```
 
-####javascript
+#### javascript
 jquery 플러그인을 작성할 경우 아래와 같이 작성합니다.
 ```javascript
 $( '.listWrap' ).swipeBase();
@@ -63,9 +63,9 @@ new SwipeBase({
 });
 ```
 
-##method
+## method
 
-###jquery method
+### jquery method
 + **swipeBase2start**: 슬라이더쇼 시작
 + **swipeBase2stop**: 슬라이더쇼 정지
 + **swipeBase2refresh**: 가로 크기 재반영
@@ -77,7 +77,7 @@ new SwipeBase({
 + **swipeBase2touchEnable**: 터치 잠금 해제
 + **swipeBase2touchDisable**: 터치 잠금
 
-###javascript method
+### javascript method
 + **startSlideShow**: 슬라이더쇼 시작
 + **stopSlideShow**: 슬라이더쇼 정지
 + **refreshSize**: 가로 크기 재반영
@@ -90,9 +90,9 @@ new SwipeBase({
 + **touchEnable**: {Boolean} 터치 잠금 해제
 + **touchDisable**: {Boolean or String} 터치 잠금, 'next', 'right'의 경우는 오른쪽 터치만 잠금, 'prev', 'left'의 경우는 왼쪽 터치만 잠금, 기본은 양쪽 모두 잠금.
 
-##option
+## option
 
-####jquery option
+#### jquery option
 + **$wrap**: {jQuery Selector} (default: $( this ).find( 'ul' )) 리스트 감쌈
 + **$list**: {jQuery Selector} (default: $( this ).find( 'ul li' )) 리스트
 + **$pages**: {jQuery Selector} (default: null) 슬라이드 이동 버튼
@@ -101,7 +101,7 @@ new SwipeBase({
 + **$toPrev**: {jQuery Selector} (default: null) 이전 이동 버튼
 + **$toNext**: {jQuery Selector} (default: null) 다음 이동 버튼
 
-####javascript option
+#### javascript option
 + **wrap**: <u>required</u> {elements} (default: null) 리스트 감쌈
 + **list**: <u>required</u> {elements} (default: null) 리스트
 + **pages**: {elements} (default: null) 슬라이드 이동 버튼
@@ -110,7 +110,7 @@ new SwipeBase({
 + **toPrev**: {elements} (default: null) 이전 이동 버튼
 + **toNext**: {elements} (default: null) 다음 이동 버튼
 
-####common option
+#### common option
 + **startIdx**: {Integer} (default: 0) 시작 리스트
 + **startEvents**: {String} (default: 'click') toStart element 이벤트
 + **stopEvents**: {String} (default: 'click') toStop element 이벤트
@@ -125,10 +125,10 @@ new SwipeBase({
 + **before**: {Function} (default: null) 슬라이더 이동 전 콜백 함수
 + **active**: {Function} (default: null) 슬라이더 이동 후 콜백 함수
 
-##Troubleshooting
+## Troubleshooting
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
 
-##History
+## History
 + 2015-10-07: 소스 정리 및 간격 기능 제거
 + 2015-08-27: 오류 수정
 + 2015-08-07:
