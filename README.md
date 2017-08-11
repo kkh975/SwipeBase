@@ -126,6 +126,7 @@ new SwipeBase({
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
 
 ## History
++ 2017-08-11: 빌더 추가
 + 2015-10-07: 소스 정리 및 간격 기능 제거
 + 2015-08-27: 오류 수정
 + 2015-08-07:
