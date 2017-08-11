@@ -6,6 +6,20 @@ SwipeBase
 
 [Demo](https://kkh975.github.io/SwipeBase)
 
+##install
+###npm
+```sh
+npm install SwipeBase --save
+```
+###bower
+```sh
+bower install SwipeBase --save
+```
+###html
+```html
+<script src="bower_components/SwipeBase/dist/SwipeBase.js"></script>
+```
+
 ##How to Use
 ####html
 아래와 같이 감싸는 태그와 리스트 태그, 그리고 리스트의 아이템 태그로 작성합니다.
@@ -83,7 +97,7 @@ new SwipeBase({
 + **$toStop**: {jQuery Selector} (default: null) 슬라이드쇼 멈춤 버튼
 + **$toPrev**: {jQuery Selector} (default: null) 이전 이동 버튼
 + **$toNext**: {jQuery Selector} (default: null) 다음 이동 버튼
-						
+
 ####javascript option
 + **wrap**: <u>required</u> {elements} (default: null) 리스트 감쌈
 + **list**: <u>required</u> {elements} (default: null) 리스트
@@ -106,7 +120,7 @@ new SwipeBase({
 + **slideShowTime**: {Boolean or Integer} (default: 3000) 슬라이더쇼 시간
 + **create**: {Function} (default: null) 생성시 콜백 함수
 + **before**: {Function} (default: null) 슬라이더 이동 전 콜백 함수
-+ **active**: {Function} (default: null) 슬라이더 이동 후 콜백 함수	
++ **active**: {Function} (default: null) 슬라이더 이동 후 콜백 함수
 
 ##Troubleshooting
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
@@ -114,7 +128,7 @@ new SwipeBase({
 ##History
 + 2015-10-07: 소스 정리 및 간격 기능 제거
 + 2015-08-27: 오류 수정
-+ 2015-08-07: 
++ 2015-08-07:
 	- Android 그래픽 카드 오류 수정
 	- 슬라이드 애니메이션, 터치 이벤트 충돌 수정
 	- enable/disable 함수 추가
