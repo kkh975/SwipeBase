@@ -7,14 +7,17 @@ SwipeBase
 [Demo](https://kkh975.github.io/SwipeBase)
 
 ##install
+
 ###npm
 ```sh
 npm install SwipeBase --save
 ```
+
 ###bower
 ```sh
 bower install SwipeBase --save
 ```
+
 ###html
 ```html
 <script src="bower_components/SwipeBase/dist/SwipeBase.js"></script>
