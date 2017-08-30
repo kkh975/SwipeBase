@@ -121,11 +121,14 @@ new SwipeBase({
 + **create**: {Function} (default: null) 생성시 콜백 함수
 + **before**: {Function} (default: null) 슬라이더 이동 전 콜백 함수
 + **active**: {Function} (default: null) 슬라이더 이동 후 콜백 함수
++ **start**: {Function} (default: null) 애니메이션 시작 콜백 함수
++ **stop**: {Function} (default: null) 애니메이션 종료 콜백 함수
 
 ## Troubleshooting
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
 
 ## History
++ 2017-08-30: start, stop 콜백 함수 추가
 + 2017-08-11: 빌더 추가
 + 2015-10-07: 소스 정리 및 간격 기능 제거
 + 2015-08-27: 오류 수정

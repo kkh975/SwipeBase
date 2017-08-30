@@ -1,6 +1,6 @@
 {
   "name": "swipebase",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Use for Mobile Swipe UI",
   "main": "index.js",
   "scripts": {

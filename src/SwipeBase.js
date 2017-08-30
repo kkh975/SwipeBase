@@ -177,7 +177,9 @@ function SwipeBase( __setting ){
 		duration         : 300,		// 애니메이션 시간
 		create           : null,	// 생성 후 콜백함수
 		before           : null,	// 액션 전 콜백함수
-		active           : null		// 액션 후 콜백함수
+		active           : null,    // 액션 후 콜백함수
+		start            : null,	// 애니메이션 시작 콜백함수
+		stop             : null		// 애니메이션 종료 콜백함수
 	};
 
 	let helper = {
@@ -652,6 +654,10 @@ function SwipeBase( __setting ){
 	function startSlideShow(){
 		if ( is_Slide_Show && slide_Show_Timer === null ){
 			slide_Show_Timer = setInterval( toNext, setting.slideShowTime );
+			
+			if ( typeof setting.start === 'function' ){
+				setting.start();
+			}
 		}
 	}
 
@@ -661,6 +667,10 @@ function SwipeBase( __setting ){
 	function stopSlideShow(){
 		clearInterval( slide_Show_Timer );
 		slide_Show_Timer = null;
+		
+		if ( typeof setting.stop === 'function' ){
+			setting.stop();
+		}
 	}
 
 	/**
