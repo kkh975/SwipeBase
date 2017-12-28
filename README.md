@@ -51,6 +51,14 @@ jquery 플러그인을 작성할 경우 아래와 같이 작성합니다.
 ```javascript
 $( '.listWrap' ).swipeBase();
 ```
+jquery 플러그인에서 바로 함수 사용시 아래와 같이 사용합니다.
+```javascript
+$( '.listWrap' ).swipeBase('startSlideShow');
+$( '.listWrap' ).swipeBase('setHeight', 300);
+$( '.listWrap' ).swipeBase('getIdx', 3);
+$( '.listWrap' ).swipeBase('touchEnable');
+$( '.listWrap' ).swipeBase('touchDisable', true);
+```
 
 javascript으로 작성할 경우 아래와 같이 작성합니다.
 ```javascript
@@ -61,20 +69,6 @@ new SwipeBase({
 ```
 
 ## method
-
-### jquery method
-+ **swipeBase2start**: 슬라이더쇼 시작
-+ **swipeBase2stop**: 슬라이더쇼 정지
-+ **swipeBase2refresh**: 가로 크기 재반영
-+ **swipeBase2setHeight**: 높이 재반영
-+ **swipeBase2prev**: 이전 슬라이더 이동
-+ **swipeBase2next**: 다음 슬라이더 이동
-+ **swipeBase2slide**: {index} 현재 슬라이더 인덱스
-+ **swipeBase2destory**: 제거
-+ **swipeBase2touchEnable**: 터치 잠금 해제
-+ **swipeBase2touchDisable**: 터치 잠금
-
-### javascript method
 + **startSlideShow**: 슬라이더쇼 시작
 + **stopSlideShow**: 슬라이더쇼 정지
 + **refreshSize**: 가로 크기 재반영
@@ -128,6 +122,7 @@ new SwipeBase({
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
 
 ## History
++ 2017-12-28: jquery method 적용 방식 추가
 + 2017-08-30: start, stop 콜백 함수 추가
 + 2017-08-11: 빌더 추가
 + 2015-10-07: 소스 정리 및 간격 기능 제거

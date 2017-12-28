@@ -1,139 +1,17 @@
 /*!*
  * @autor: Blim - Koo Chi Hoon(kkh975@naver.com)
  * @license http://blim.mit-license.org/
+ * 
+ * TODO: refreshSize / setHeight -> draw로 통합하기
+ * TODO: events 방식에 대한 것 설명 추가하기
+ * TODO: mouse 방식에 대한 것 추가하기
  */
-if ( window.jQuery ) {
-	( function( $ ){
-		'use strict';
-
-		const dataName = 'SwipeBase';
-
-		$.fn.swipeBase = function( option ){
-			option         = option || {};
-			option.$list   = option.$list || $( this ).find( '> ul > li' );
-			option.$wrap   = option.$wrap || $( this ).find( '> ul' );
-			option.wrap    = option.$wrap.toArray() || [];
-			option.list    = option.$list.toArray() || [];
-			option.pages   = ( option.$pages && option.$pages.toArray ) ? option.$pages.toArray() : [];
-			option.toStart = ( option.$toStart && option.$toStart.toArray ) ? option.$toStart.toArray() : [];
-			option.toStop  = ( option.$toStop && option.$toStop.toArray ) ? option.$toStop.toArray() : [];
-			option.toPrev  = ( option.$toPrev && option.$toPrev.toArray ) ? option.$toPrev.toArray() : [];
-			option.toNext  = ( option.$toNext && option.$toNext.toArray ) ? option.$toNext.toArray() : [];
-
-			return this.each( function(){
-				$( this ).data( dataName, new SwipeBase( option ));
-			});
-		};
-
-		$.fn.swipeBase2start = function(){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.startSlideShow !== 'undefined' ){
-					inst.startSlideShow();
-				}
-			});
-		};
-
-		$.fn.swipeBase2stop = function(){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.stopSlideShow !== 'undefined' ){
-					inst.stopSlideShow();
-				}
-			});
-		};
-
-		$.fn.swipeBase2refresh = function(){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.refreshSize !== 'undefined' ){
-					inst.refreshSize();
-				}
-			});
-		};
-
-		$.fn.swipeBase2setHeight = function( _hei ){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.setHeight !== 'undefined' ){
-					inst.setHeight( _hei );
-				}
-			});
-		};
-
-		$.fn.swipeBase2prev = function(){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.toPrev !== 'undefined' ){
-					inst.toPrev();
-				}
-			});
-		};
-
-		$.fn.swipeBase2next = function(){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.toNext !== 'undefined' ){
-					inst.toNext();
-				}
-			});
-		};
-
-		$.fn.swipeBase2slide = function( _idx ){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.toSlide !== 'undefined' ){
-					inst.toSlide( _idx );
-				}
-			});
-		};
-
-		$.fn.swipeBase2destory = function( _idx ){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.destory !== 'undefined' ){
-					inst.destory();
-				}
-			});
-		};
-
-		$.fn.swipeBase2touchEnable = function(){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.touchEnable !== 'undefined' ){
-					inst.touchEnable();
-				}
-			});
-		};
-
-		$.fn.swipeBase2touchDisable = function( _direct ){
-			return this.each( function(){
-				let inst = $( this ).data( dataName );
-
-				if ( typeof inst !== 'undefined' && typeof inst.touchDisable !== 'undefined' ){
-					inst.touchDisable( _direct || true );
-				}
-			});
-		};
-	}( jQuery ));
-}
+'use strict';
 
 /*!*
  * @method: SwipeBase 함수
  */
 function SwipeBase( __setting ){
-
-	'use strict';
-
 	let BASE_DISTANCE    = 100,
 		setting          = null,
 		D_Wrap           = null,
@@ -944,6 +822,191 @@ function SwipeBase( __setting ){
 		};
 	}
 }
+
+( function(){
+	var DATA_NAME = 'SwipeBase';
+
+	$.fn.swipeBase = function( _option, _param ){
+		return this.each( function(){
+			if ( typeof(_option) == 'string' && $.data(this, DATA_NAME) ){
+				switch( _option ){
+					case 'startSlideShow':
+						$.data(this, DATA_NAME).startSlideShow();
+						break;
+					case 'stopSlideShow':
+						$.data(this, DATA_NAME).stopSlideShow();
+						break;
+					case 'refreshSize':
+						$.data(this, DATA_NAME).refreshSize();
+						break;
+					case 'setHeight':
+						try {
+							if ( isNaN(_param) ){
+								throw new Error('check parameter!')
+							}
+
+							$.data(this, DATA_NAME).setHeight( _param );
+						} catch (err) {
+							console.log(err)
+						}
+						break;
+					case 'toPrev':
+						$.data(this, DATA_NAME).toPrev();
+						break;
+					case 'toNext':
+						$.data(this, DATA_NAME).toNext();
+						break;
+					case 'toSlide':
+						try {
+							if ( isNaN(_param) ){
+								throw new Error('check parameter!')
+							}
+
+							$.data(this, DATA_NAME).toSlide( _param );
+						} catch (err) {
+							console.log(err)
+						}
+						break;
+					case 'destory':
+						$.data(this, DATA_NAME).destory();
+						break;
+					case 'touchEnable':
+						$.data(this, DATA_NAME).touchEnable( );
+						break;
+					case 'touchDisable':
+						try {
+							if ( typeof(_param) == 'boolean' ){
+								throw new Error('check parameter!')
+							}
+
+							$.data(this, DATA_NAME).touchDisable( _param );	
+						} catch (err) {
+							console.log(err)
+						}
+						break;
+				}
+			} else if ( !$.data(this, DATA_NAME) ){
+				var option = _option || {};
+
+				option.$list   = option.$list || $( this ).find( '> ul > li' );
+				option.$wrap   = option.$wrap || $( this ).find( '> ul' );
+				option.wrap    = option.$wrap.toArray() || [];
+				option.list    = option.$list.toArray() || [];
+				option.pages   = ( option.$pages   && option.$pages.toArray )   ? option.$pages.toArray() : [];
+				option.toStart = ( option.$toStart && option.$toStart.toArray ) ? option.$toStart.toArray() : [];
+				option.toStop  = ( option.$toStop  && option.$toStop.toArray )  ? option.$toStop.toArray() : [];
+				option.toPrev  = ( option.$toPrev  && option.$toPrev.toArray )  ? option.$toPrev.toArray() : [];
+				option.toNext  = ( option.$toNext  && option.$toNext.toArray )  ? option.$toNext.toArray() : [];
+
+				$.data(this, DATA_NAME, new SwipeBase(option));
+			}
+		})
+	}
+
+
+	/**
+	 * Deprecated below!! 
+	 */
+	$.fn.swipeBase2start = function(){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.startSlideShow !== 'undefined' ){
+				inst.startSlideShow();
+			}
+		});
+	};
+
+	$.fn.swipeBase2stop = function(){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.stopSlideShow !== 'undefined' ){
+				inst.stopSlideShow();
+			}
+		});
+	};
+
+	$.fn.swipeBase2refresh = function(){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.refreshSize !== 'undefined' ){
+				inst.refreshSize();
+			}
+		});
+	};
+
+	$.fn.swipeBase2setHeight = function( _hei ){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.setHeight !== 'undefined' ){
+				inst.setHeight( _hei );
+			}
+		});
+	};
+
+	$.fn.swipeBase2prev = function(){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.toPrev !== 'undefined' ){
+				inst.toPrev();
+			}
+		});
+	};
+
+	$.fn.swipeBase2next = function(){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.toNext !== 'undefined' ){
+				inst.toNext();
+			}
+		});
+	};
+
+	$.fn.swipeBase2slide = function( _idx ){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.toSlide !== 'undefined' ){
+				inst.toSlide( _idx );
+			}
+		});
+	};
+
+	$.fn.swipeBase2destory = function(){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.destory !== 'undefined' ){
+				inst.destory();
+			}
+		});
+	};
+
+	$.fn.swipeBase2touchEnable = function(){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.touchEnable !== 'undefined' ){
+				inst.touchEnable();
+			}
+		});
+	};
+
+	$.fn.swipeBase2touchDisable = function( _direct ){
+		return this.each( function(){
+			let inst = $( this ).data( DATA_NAME );
+
+			if ( typeof inst !== 'undefined' && typeof inst.touchDisable !== 'undefined' ){
+				inst.touchDisable( _direct );
+			}
+		});
+	};
+}( jQuery ));
 
 
 module.exports = SwipeBase;

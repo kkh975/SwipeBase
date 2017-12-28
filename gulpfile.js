@@ -1,6 +1,5 @@
 var gulp          = require('gulp');
 var del           = require('del');
-var gutil         = require('gulp-util');
 var sequence      = require('gulp-sequence');
 var webpack       = require('gulp-webpack');
 var webpackConfig = require('./webpack.config.js');
@@ -23,7 +22,6 @@ gulp.task('js', function(){
 
 gulp.task('watcher', function(){
     gulp.watch([clientSrcPath + '/**'], { interval: 500 }, [ 'js' ]).on('change', function( event ){
-        gutil.log('File', gutil.colors.yellow(event.path), 'was', gutil.colors.magenta(event.type));
     });
 });
 
