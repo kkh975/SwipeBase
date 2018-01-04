@@ -5,6 +5,8 @@
  * TODO: refreshSize / setHeight -> draw로 통합하기
  * TODO: events 방식에 대한 것 설명 추가하기
  * TODO: mouse 방식에 대한 것 추가하기
+ * TODO: test 도구 작성해보기
+ * TODO: coverage 작성해보기
  */
 'use strict';
 
@@ -886,10 +888,11 @@ function SwipeBase( __setting ){
 						break;
 				}
 			} else if ( !$.data(this, DATA_NAME) ){
-				var option = _option || {};
+				var $this = $( this );
+				var option = Object.assign({}, _option);
 
-				option.$list   = option.$list || $( this ).find( '> ul > li' );
-				option.$wrap   = option.$wrap || $( this ).find( '> ul' );
+				option.$list   = option.$list || $this.find( '> ul > li' );
+				option.$wrap   = option.$wrap || $this.find( '> ul' );
 				option.wrap    = option.$wrap.toArray() || [];
 				option.list    = option.$list.toArray() || [];
 				option.pages   = ( option.$pages   && option.$pages.toArray )   ? option.$pages.toArray() : [];

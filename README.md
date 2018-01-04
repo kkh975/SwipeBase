@@ -122,6 +122,7 @@ new SwipeBase({
 [ISSUES](https://github.com/kkh975/SwipeBase/issues).
 
 ## History
++ 2017-12-28: jquery 오류 수정
 + 2017-12-28: jquery method 적용 방식 추가
 + 2017-08-30: start, stop 콜백 함수 추가
 + 2017-08-11: 빌더 추가
