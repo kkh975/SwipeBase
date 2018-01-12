@@ -825,191 +825,193 @@ function SwipeBase( __setting ){
 	}
 }
 
-( function(){
-	var DATA_NAME = 'SwipeBase';
+if ( jQuery ){
+	(function(){
+		var DATA_NAME = 'SwipeBase';
 
-	$.fn.swipeBase = function( _option, _param ){
-		return this.each( function(){
-			if ( typeof(_option) == 'string' && $.data(this, DATA_NAME) ){
-				switch( _option ){
-					case 'startSlideShow':
-						$.data(this, DATA_NAME).startSlideShow();
-						break;
-					case 'stopSlideShow':
-						$.data(this, DATA_NAME).stopSlideShow();
-						break;
-					case 'refreshSize':
-						$.data(this, DATA_NAME).refreshSize();
-						break;
-					case 'setHeight':
-						try {
-							if ( isNaN(_param) ){
-								throw new Error('check parameter!')
+		$.fn.swipeBase = function( _option, _param ){
+			return this.each( function(){
+				if ( typeof(_option) == 'string' && $.data(this, DATA_NAME) ){
+					switch( _option ){
+						case 'startSlideShow':
+							$.data(this, DATA_NAME).startSlideShow();
+							break;
+						case 'stopSlideShow':
+							$.data(this, DATA_NAME).stopSlideShow();
+							break;
+						case 'refreshSize':
+							$.data(this, DATA_NAME).refreshSize();
+							break;
+						case 'setHeight':
+							try {
+								if ( isNaN(_param) ){
+									throw new Error('check parameter!')
+								}
+
+								$.data(this, DATA_NAME).setHeight( _param );
+							} catch (err) {
+								console.log(err)
 							}
+							break;
+						case 'toPrev':
+							$.data(this, DATA_NAME).toPrev();
+							break;
+						case 'toNext':
+							$.data(this, DATA_NAME).toNext();
+							break;
+						case 'toSlide':
+							try {
+								if ( isNaN(_param) ){
+									throw new Error('check parameter!')
+								}
 
-							$.data(this, DATA_NAME).setHeight( _param );
-						} catch (err) {
-							console.log(err)
-						}
-						break;
-					case 'toPrev':
-						$.data(this, DATA_NAME).toPrev();
-						break;
-					case 'toNext':
-						$.data(this, DATA_NAME).toNext();
-						break;
-					case 'toSlide':
-						try {
-							if ( isNaN(_param) ){
-								throw new Error('check parameter!')
+								$.data(this, DATA_NAME).toSlide( _param );
+							} catch (err) {
+								console.log(err)
 							}
+							break;
+						case 'destory':
+							$.data(this, DATA_NAME).destory();
+							break;
+						case 'touchEnable':
+							$.data(this, DATA_NAME).touchEnable( );
+							break;
+						case 'touchDisable':
+							try {
+								if ( typeof(_param) == 'boolean' ){
+									throw new Error('check parameter!')
+								}
 
-							$.data(this, DATA_NAME).toSlide( _param );
-						} catch (err) {
-							console.log(err)
-						}
-						break;
-					case 'destory':
-						$.data(this, DATA_NAME).destory();
-						break;
-					case 'touchEnable':
-						$.data(this, DATA_NAME).touchEnable( );
-						break;
-					case 'touchDisable':
-						try {
-							if ( typeof(_param) == 'boolean' ){
-								throw new Error('check parameter!')
+								$.data(this, DATA_NAME).touchDisable( _param );	
+							} catch (err) {
+								console.log(err)
 							}
+							break;
+					}
+				} else if ( !$.data(this, DATA_NAME) ){
+					var $this = $( this );
+					var option = Object.assign({}, _option);
 
-							$.data(this, DATA_NAME).touchDisable( _param );	
-						} catch (err) {
-							console.log(err)
-						}
-						break;
+					option.$list   = option.$list || $this.find( '> ul > li' );
+					option.$wrap   = option.$wrap || $this.find( '> ul' );
+					option.wrap    = option.$wrap.toArray() || [];
+					option.list    = option.$list.toArray() || [];
+					option.pages   = ( option.$pages   && option.$pages.toArray )   ? option.$pages.toArray() : [];
+					option.toStart = ( option.$toStart && option.$toStart.toArray ) ? option.$toStart.toArray() : [];
+					option.toStop  = ( option.$toStop  && option.$toStop.toArray )  ? option.$toStop.toArray() : [];
+					option.toPrev  = ( option.$toPrev  && option.$toPrev.toArray )  ? option.$toPrev.toArray() : [];
+					option.toNext  = ( option.$toNext  && option.$toNext.toArray )  ? option.$toNext.toArray() : [];
+
+					$.data(this, DATA_NAME, new SwipeBase(option));
 				}
-			} else if ( !$.data(this, DATA_NAME) ){
-				var $this = $( this );
-				var option = Object.assign({}, _option);
-
-				option.$list   = option.$list || $this.find( '> ul > li' );
-				option.$wrap   = option.$wrap || $this.find( '> ul' );
-				option.wrap    = option.$wrap.toArray() || [];
-				option.list    = option.$list.toArray() || [];
-				option.pages   = ( option.$pages   && option.$pages.toArray )   ? option.$pages.toArray() : [];
-				option.toStart = ( option.$toStart && option.$toStart.toArray ) ? option.$toStart.toArray() : [];
-				option.toStop  = ( option.$toStop  && option.$toStop.toArray )  ? option.$toStop.toArray() : [];
-				option.toPrev  = ( option.$toPrev  && option.$toPrev.toArray )  ? option.$toPrev.toArray() : [];
-				option.toNext  = ( option.$toNext  && option.$toNext.toArray )  ? option.$toNext.toArray() : [];
-
-				$.data(this, DATA_NAME, new SwipeBase(option));
-			}
-		})
-	}
+			})
+		}
 
 
-	/**
-	 * Deprecated below!! 
-	 */
-	$.fn.swipeBase2start = function(){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		/**
+		 * Deprecated below!! 
+		 */
+		$.fn.swipeBase2start = function(){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.startSlideShow !== 'undefined' ){
-				inst.startSlideShow();
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.startSlideShow !== 'undefined' ){
+					inst.startSlideShow();
+				}
+			});
+		};
 
-	$.fn.swipeBase2stop = function(){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2stop = function(){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.stopSlideShow !== 'undefined' ){
-				inst.stopSlideShow();
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.stopSlideShow !== 'undefined' ){
+					inst.stopSlideShow();
+				}
+			});
+		};
 
-	$.fn.swipeBase2refresh = function(){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2refresh = function(){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.refreshSize !== 'undefined' ){
-				inst.refreshSize();
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.refreshSize !== 'undefined' ){
+					inst.refreshSize();
+				}
+			});
+		};
 
-	$.fn.swipeBase2setHeight = function( _hei ){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2setHeight = function( _hei ){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.setHeight !== 'undefined' ){
-				inst.setHeight( _hei );
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.setHeight !== 'undefined' ){
+					inst.setHeight( _hei );
+				}
+			});
+		};
 
-	$.fn.swipeBase2prev = function(){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2prev = function(){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.toPrev !== 'undefined' ){
-				inst.toPrev();
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.toPrev !== 'undefined' ){
+					inst.toPrev();
+				}
+			});
+		};
 
-	$.fn.swipeBase2next = function(){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2next = function(){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.toNext !== 'undefined' ){
-				inst.toNext();
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.toNext !== 'undefined' ){
+					inst.toNext();
+				}
+			});
+		};
 
-	$.fn.swipeBase2slide = function( _idx ){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2slide = function( _idx ){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.toSlide !== 'undefined' ){
-				inst.toSlide( _idx );
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.toSlide !== 'undefined' ){
+					inst.toSlide( _idx );
+				}
+			});
+		};
 
-	$.fn.swipeBase2destory = function(){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2destory = function(){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.destory !== 'undefined' ){
-				inst.destory();
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.destory !== 'undefined' ){
+					inst.destory();
+				}
+			});
+		};
 
-	$.fn.swipeBase2touchEnable = function(){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2touchEnable = function(){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.touchEnable !== 'undefined' ){
-				inst.touchEnable();
-			}
-		});
-	};
+				if ( typeof inst !== 'undefined' && typeof inst.touchEnable !== 'undefined' ){
+					inst.touchEnable();
+				}
+			});
+		};
 
-	$.fn.swipeBase2touchDisable = function( _direct ){
-		return this.each( function(){
-			let inst = $( this ).data( DATA_NAME );
+		$.fn.swipeBase2touchDisable = function( _direct ){
+			return this.each( function(){
+				let inst = $( this ).data( DATA_NAME );
 
-			if ( typeof inst !== 'undefined' && typeof inst.touchDisable !== 'undefined' ){
-				inst.touchDisable( _direct );
-			}
-		});
-	};
-}( jQuery ));
+				if ( typeof inst !== 'undefined' && typeof inst.touchDisable !== 'undefined' ){
+					inst.touchDisable( _direct );
+				}
+			});
+		};
+	}( jQuery ));	
+}
 
 
 module.exports = SwipeBase;
